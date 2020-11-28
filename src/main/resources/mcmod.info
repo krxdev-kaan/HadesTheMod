@@ -1,0 +1,16 @@
+[
+{
+  "modid": "hadesmod",
+  "name": "Hades: The Mod",
+  "description": "A Fanmade Hades Mod that implements most of Hades's main aspects.",
+  "version": "${hadesmod.version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["KRXDevelops-Kaan", "KRXDevelops-Emir"],
+  "credits": "To us, KRXDevelops, duh",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
