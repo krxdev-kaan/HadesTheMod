@@ -1,5 +1,5 @@
 # HadesTheMod
 A Fanmade mod that implements Hades's main aspects into Minecraft.
 ## Authors
-- krxdev-kaan
-- krxdev-emir
+- [KRXDevelops-Kaan](https://github.com/krxdev-kaan/)
+- [KRXDevelops-Emir](https://github.com/krxdev-emir/)
