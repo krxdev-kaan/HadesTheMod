@@ -1,0 +1,6 @@
+{
+"type": "minecraft:crafting_shaped", 
+"pattern": ["xxx", "xxx", "xxx"],
+"key": {"x": {"item": "hadesmod:ingot_Stygian"}},
+"result": {"item": "hadesmod:block_Stygian"}
+}
