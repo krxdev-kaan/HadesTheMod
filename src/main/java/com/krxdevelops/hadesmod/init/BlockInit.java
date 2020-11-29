@@ -12,5 +12,5 @@ public class BlockInit
 {
     public static final List<Block> BLOCKS = new ArrayList<Block>();
 
-    public static final Block stygianOre = new BlockBase("stygianOre", Material.ROCK);
+
 }
