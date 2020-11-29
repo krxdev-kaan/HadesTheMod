@@ -28,12 +28,20 @@ public class BlockBase extends Block implements IHasModel
         ItemInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
     }
 
-    public BlockBase(String name, Material material, Float hardness, String toolClassName, Integer harvestLevel, Item customDrop)
+    public BlockBase(String name, Material material, Float hardness, String toolClassName, Integer harvestLevel, Item customDrop, CreativeTabs customCreativeTab)
     {
         super(material);
         setUnlocalizedName(name);
         setRegistryName(name);
-        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+
+        if(customCreativeTab != null)
+        {
+            setCreativeTab(customCreativeTab);
+        }
+        else
+        {
+            setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        }
 
         if(customDrop != null)
         {
