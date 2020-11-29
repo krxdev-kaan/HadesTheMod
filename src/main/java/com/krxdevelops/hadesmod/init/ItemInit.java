@@ -15,4 +15,6 @@ public class ItemInit
     public static final Item darkness = new ItemBase("darkness");
     public static final Item chthonicKey = new ItemBase("chtonicKey");
     public static final Item titanblood = new ItemBase("titanblood");
+
+
 }
