@@ -16,8 +16,8 @@ public class ItemInit
 
     public static final StygiusSword stygiusSword = new StygiusSword("arm_stygius", TOOL_STYGIAN);
 
-    public static final Item stygianMatter = new ItemBase("ore_Stygian");
-    public static final Item stygianIngot = new ItemBase("ingot_Stygian");
+    public static final Item stygianMatter = new ItemBase("ore_stygian");
+    public static final Item stygianIngot = new ItemBase("ingot_stygian");
     public static final Item darkness = new ItemBase("darkness");
     public static final Item chthonicKey = new ItemBase("chtonicKey");
     public static final Item titanblood = new ItemBase("titanblood");
