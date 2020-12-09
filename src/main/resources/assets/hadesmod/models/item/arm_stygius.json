@@ -1,17 +1,17 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "hadesmod:blocks/gold_block",
-		"1": "hadesmod:blocks/emerald_block",
-		"2": "hadesmod:blocks/black_wool",
-		"3": "hadesmod:blocks/skeleton_edited",
-		"4": "hadesmod:blocks/red_shulker_box",
-		"5": "hadesmod:blocks/white_concrete",
-		"6": "hadesmod:blocks/orange_shulker_box",
-		"8": "hadesmod:blocks/gray_wool",
-		"9": "hadesmod:blocks/light_gray_wool",
-		"10": "hadesmod:blocks/white_wool",
-		"particle": "hadesmod:blocks/gold_block"
+		"0": "hadesmod:arm_stygius/gold_block",
+		"1": "hadesmod:arm_stygius/emerald_block",
+		"2": "hadesmod:arm_stygius/black_wool",
+		"3": "hadesmod:arm_stygius/skeleton_edited",
+		"4": "hadesmod:arm_stygius/red_shulker_box",
+		"5": "hadesmod:arm_stygius/white_concrete",
+		"6": "hadesmod:arm_stygius/orange_shulker_box",
+		"8": "hadesmod:arm_stygius/gray_wool",
+		"9": "hadesmod:arm_stygius/light_gray_wool",
+		"10": "hadesmod:arm_stygius/white_wool",
+		"particle": "hadesmod:arm_stygius/gold_block"
 	},
 	"elements": [
 		{
