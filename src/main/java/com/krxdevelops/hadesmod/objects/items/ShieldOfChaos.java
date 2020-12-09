@@ -11,22 +11,22 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.Sys;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class ShieldOfChaos extends Item implements IHasModel
 {
     private float attackDamage;
     private float attackSpeed;
-
-    public boolean isCharging = false;
-    public int ticksPassedWhileCharging = 0;
 
     public ShieldOfChaos(String name, float attackDamage, float attackSpeed)
     {
@@ -67,6 +67,12 @@ public class ShieldOfChaos extends Item implements IHasModel
         return multimap;
     }
 
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged)
+    {
+        return false;
+    }
+
     public EnumAction getItemUseAction(ItemStack stack)
     {
         return EnumAction.BLOCK;
@@ -86,28 +92,28 @@ public class ShieldOfChaos extends Item implements IHasModel
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
     }
 
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        return EnumActionResult.PASS;
-    }
-
     public void onUsingTick(ItemStack stack, EntityLivingBase player, int count)
     {
+        NBTTagCompound tag = stack.getOrCreateSubCompound("arm_data");
+        tag.setBoolean("isCharging", true);
+        tag.setInteger("ticksPassedWhileCharging", 72000 - count);
     }
 
-    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
+    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft)
     {
-        return stack;
+        NBTTagCompound tag = stack.getOrCreateSubCompound("arm_data");
+        tag.setBoolean("isCharging", false);
+        tag.setInteger("ticksPassedWhileCharging", 0);
     }
 
     public boolean showDurabilityBar(ItemStack stack)
     {
-        return ((ShieldOfChaos)stack.getItem()).isCharging;
+        return stack.getOrCreateSubCompound("arm_data").getBoolean("isCharging");
     }
 
     public double getDurabilityForDisplay(ItemStack stack)
     {
-        return ((double)((ShieldOfChaos)stack.getItem()).ticksPassedWhileCharging) / 60;
+        return Math.abs((((double)(stack.getOrCreateSubCompound("arm_data").getInteger("ticksPassedWhileCharging"))) / 60) - 1);
     }
 
     public int getRGBDurabilityForDisplay(ItemStack stack)
