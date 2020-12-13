@@ -1,4 +1,4 @@
-package com.krxdevelops.hadesmod.objects.items;
+package com.krxdevelops.hadesmod.items;
 
 import com.google.common.collect.Multimap;
 import com.krxdevelops.hadesmod.HadesMod;

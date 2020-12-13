@@ -1,8 +1,7 @@
 package com.krxdevelops.hadesmod.handlers;
 
 import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegisProvider;
-import com.krxdevelops.hadesmod.objects.items.ShieldOfChaos;
-import net.minecraft.item.Item;
+import com.krxdevelops.hadesmod.items.ShieldOfChaos;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.Mod;

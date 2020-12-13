@@ -1,4 +1,4 @@
-package com.krxdevelops.hadesmod.objects.items;
+package com.krxdevelops.hadesmod.items;
 
 import com.google.common.collect.Multimap;
 import com.krxdevelops.hadesmod.HadesMod;
@@ -6,6 +6,7 @@ import com.krxdevelops.hadesmod.capabilities.aegis.Aegis;
 import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegis;
 import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegisProvider;
 import com.krxdevelops.hadesmod.capabilities.aegis.IAegis;
+import com.krxdevelops.hadesmod.entities.EntityShieldOfChaos;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasModel;
 import net.minecraft.client.Minecraft;
@@ -15,6 +16,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
@@ -112,7 +114,11 @@ public class ShieldOfChaos extends Item implements IHasModel
         {
             if (!worldIn.isRemote)
             {
+                EntityShieldOfChaos entityShield = new EntityShieldOfChaos(worldIn, (EntityPlayer)entityIn);
+                entityShield.shoot(entityIn, entityIn.rotationPitch, entityIn.rotationYaw, 0.0F, 0.5F, 0.0F);
+                worldIn.spawnEntity(entityShield);
 
+                ((EntityPlayer)entityIn).resetActiveHand();
             }
         }
     }

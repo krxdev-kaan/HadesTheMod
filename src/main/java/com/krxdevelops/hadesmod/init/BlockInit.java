@@ -1,9 +1,8 @@
 package com.krxdevelops.hadesmod.init;
 
-import com.krxdevelops.hadesmod.objects.blocks.BlockBase;
+import com.krxdevelops.hadesmod.blocks.BlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;

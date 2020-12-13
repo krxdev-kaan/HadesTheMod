@@ -1,8 +1,8 @@
 package com.krxdevelops.hadesmod.init;
 
-import com.krxdevelops.hadesmod.objects.items.ItemBase;
-import com.krxdevelops.hadesmod.objects.items.ShieldOfChaos;
-import com.krxdevelops.hadesmod.objects.items.StygiusSword;
+import com.krxdevelops.hadesmod.items.ItemBase;
+import com.krxdevelops.hadesmod.items.ShieldOfChaos;
+import com.krxdevelops.hadesmod.items.StygiusSword;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.util.EnumHelper;
 
