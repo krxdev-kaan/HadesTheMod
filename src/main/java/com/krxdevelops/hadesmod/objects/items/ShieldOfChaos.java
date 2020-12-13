@@ -2,9 +2,15 @@ package com.krxdevelops.hadesmod.objects.items;
 
 import com.google.common.collect.Multimap;
 import com.krxdevelops.hadesmod.HadesMod;
+import com.krxdevelops.hadesmod.capabilities.aegis.Aegis;
+import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegis;
+import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegisProvider;
+import com.krxdevelops.hadesmod.capabilities.aegis.IAegis;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasModel;
+import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -16,10 +22,13 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.Sys;
-
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -37,6 +46,7 @@ public class ShieldOfChaos extends Item implements IHasModel
         setMaxDamage(-1);
         this.attackDamage = attackDamage + 3.0F;
         this.attackSpeed = attackSpeed;
+
         addPropertyOverride(new ResourceLocation("blocking"), new IItemPropertyGetter()
         {
             @SideOnly(Side.CLIENT)
@@ -85,35 +95,45 @@ public class ShieldOfChaos extends Item implements IHasModel
 
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
+        ItemStack stack = playerIn.getHeldItem(handIn);
         if (handIn != EnumHand.MAIN_HAND)
-            return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+            return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
+        IAegis capability = stack.getCapability(CapabilityAegis.SHIELD_OF_CHAOS_CAPABILITIES, null);
+        capability.setChargingState(true);
+        capability.setTicksWhenStartedCharging(worldIn.getTotalWorldTime());
         playerIn.setActiveHand(handIn);
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
     }
 
-    public void onUsingTick(ItemStack stack, EntityLivingBase player, int count)
+    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
     {
-        NBTTagCompound tag = stack.getOrCreateSubCompound("arm_data");
-        tag.setBoolean("isCharging", true);
-        tag.setInteger("ticksPassedWhileCharging", 72000 - count);
+        IAegis capability = stack.getCapability(CapabilityAegis.SHIELD_OF_CHAOS_CAPABILITIES, null);
+        if (capability.getChargingState() && capability.isAbleToThrow(worldIn.getTotalWorldTime()))
+        {
+            if (!worldIn.isRemote)
+            {
+
+            }
+        }
     }
 
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft)
     {
-        NBTTagCompound tag = stack.getOrCreateSubCompound("arm_data");
-        tag.setBoolean("isCharging", false);
-        tag.setInteger("ticksPassedWhileCharging", 0);
+        IAegis capability = stack.getCapability(CapabilityAegis.SHIELD_OF_CHAOS_CAPABILITIES, null);
+        capability.setChargingState(false);
+        capability.setTicksWhenStartedCharging(-1);
     }
 
     public boolean showDurabilityBar(ItemStack stack)
     {
-        return stack.getOrCreateSubCompound("arm_data").getBoolean("isCharging");
+        return stack.getCapability(CapabilityAegis.SHIELD_OF_CHAOS_CAPABILITIES, null).getChargingState();
     }
 
     public double getDurabilityForDisplay(ItemStack stack)
     {
-        return Math.abs((((double)(stack.getOrCreateSubCompound("arm_data").getInteger("ticksPassedWhileCharging"))) / 60) - 1);
+        IAegis capability = stack.getCapability(CapabilityAegis.SHIELD_OF_CHAOS_CAPABILITIES, null);
+        double ticksPassed = Minecraft.getMinecraft().world.getTotalWorldTime() - capability.getTicksWhenStartedCharging();
+        return ticksPassed > 60 ? 0.0D : 1 - ticksPassed / 60;
     }
 
     public int getRGBDurabilityForDisplay(ItemStack stack)
