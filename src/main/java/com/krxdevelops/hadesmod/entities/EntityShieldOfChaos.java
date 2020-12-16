@@ -55,13 +55,14 @@ public class EntityShieldOfChaos extends EntityThrowable
         super.onUpdate();
 
         this.world.spawnParticle(
-                EnumParticleTypes.REDSTONE,
+                EnumParticleTypes.LAVA,
                 this.posX,
                 this.posY,
                 this.posZ,
                 0.0D,
                 0.0D,
-                0.0D
+                0.0D,
+                5
         );
     }
 
@@ -74,6 +75,18 @@ public class EntityShieldOfChaos extends EntityThrowable
 
         if (!this.world.isRemote)
         {
+            ((WorldServer)this.world).spawnParticle(
+                    EnumParticleTypes.REDSTONE,
+                    this.posX,
+                    this.posY,
+                    this.posZ,
+                    40,
+                    0.3D,
+                    0.3D,
+                    0.3D,
+                    0.0D
+            );
+
             this.world.setEntityState(this, (byte)3);
             this.setDead();
         }
