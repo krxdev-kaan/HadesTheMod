@@ -12,5 +12,5 @@ public class EntityInit
 {
     public static final List<EntityEntry> ENTITIES = new ArrayList<EntityEntry>();
 
-    public static final EntityEntry entityShieldOfChaos = new EntityEntry(EntityShieldOfChaos.class, "hadesmod:entity_ShieldOfChaos");
+    public static final EntityEntry entityShieldOfChaos = new EntityEntry(EntityShieldOfChaos.class, "hadesmod:shieldofchaos");
 }

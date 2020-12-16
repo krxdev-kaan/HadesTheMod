@@ -109,23 +109,22 @@ public class ShieldOfChaos extends Item implements IHasModel
 
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
     {
-        IAegis capability = stack.getCapability(CapabilityAegis.SHIELD_OF_CHAOS_CAPABILITIES, null);
-        if (capability.getChargingState() && capability.isAbleToThrow(worldIn.getTotalWorldTime()))
-        {
-            if (!worldIn.isRemote)
-            {
-                EntityShieldOfChaos entityShield = new EntityShieldOfChaos(worldIn, (EntityPlayer)entityIn);
-                entityShield.shoot(entityIn, entityIn.rotationPitch, entityIn.rotationYaw, 0.0F, 0.5F, 0.0F);
-                worldIn.spawnEntity(entityShield);
-
-                ((EntityPlayer)entityIn).resetActiveHand();
-            }
-        }
     }
 
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft)
     {
         IAegis capability = stack.getCapability(CapabilityAegis.SHIELD_OF_CHAOS_CAPABILITIES, null);
+
+        if (capability.getChargingState() && capability.isAbleToThrow(worldIn.getTotalWorldTime()))
+        {
+            if (!worldIn.isRemote)
+            {
+                EntityShieldOfChaos entityShield = new EntityShieldOfChaos(worldIn, entityLiving);
+                entityShield.shoot(entityLiving, entityLiving.rotationPitch, entityLiving.rotationYaw, 0.0F, 1.0F, 0.0F);
+                worldIn.spawnEntity(entityShield);
+            }
+        }
+
         capability.setChargingState(false);
         capability.setTicksWhenStartedCharging(-1);
     }
