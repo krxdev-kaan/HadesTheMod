@@ -1,31 +1,24 @@
 package com.krxdevelops.hadesmod.proxy;
 
+import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
 import com.krxdevelops.hadesmod.entities.EntityShieldOfChaos;
 import com.krxdevelops.hadesmod.init.ItemInit;
-import com.krxdevelops.hadesmod.items.ShieldOfChaos;
-import com.krxdevelops.hadesmod.render.RenderShieldOfChaos;
-import com.krxdevelops.hadesmod.util.IHasModel;
-import net.minecraft.client.Minecraft;
+import com.krxdevelops.hadesmod.render.factory.RenderFactoryEternalSpear;
+import com.krxdevelops.hadesmod.render.factory.RenderFactoryShieldOfChaos;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.server.terminalconsole.MinecraftFormattingConverter;
-import org.lwjgl.Sys;
 
 public class ClientProxy extends CommonProxy
 {
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
-        System.out.println("Registering Entities");
-        RenderingRegistry.registerEntityRenderingHandler(EntityShieldOfChaos.class, new RenderShieldOfChaos<EntityShieldOfChaos>(ItemInit.shieldOfChaos));
+        System.out.println("Registering Renderers");
+        RenderingRegistry.registerEntityRenderingHandler(EntityShieldOfChaos.class, new RenderFactoryShieldOfChaos<EntityShieldOfChaos>(ItemInit.shieldOfChaos));
     }
 
     @Override

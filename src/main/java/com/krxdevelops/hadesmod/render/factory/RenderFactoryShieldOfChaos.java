@@ -1,5 +1,6 @@
-package com.krxdevelops.hadesmod.render;
+package com.krxdevelops.hadesmod.render.factory;
 
+import com.krxdevelops.hadesmod.render.renderer.RenderShieldOfChaos;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderItem;
@@ -14,11 +15,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
-public class RenderShieldOfChaos<T extends Entity> implements IRenderFactory<T>
+public class RenderFactoryShieldOfChaos<T extends Entity> implements IRenderFactory<T>
 {
     private final Item item;
 
-    public RenderShieldOfChaos(Item item)
+    public RenderFactoryShieldOfChaos(Item item)
     {
         this.item = item;
     }
@@ -26,6 +27,6 @@ public class RenderShieldOfChaos<T extends Entity> implements IRenderFactory<T>
     @Override
     public Render<? super T> createRenderFor(RenderManager manager)
     {
-        return new RenderSnowball<T>(manager, this.item, Minecraft.getMinecraft().getRenderItem());
+        return new RenderShieldOfChaos<T>(manager, this.item, Minecraft.getMinecraft().getRenderItem());
     }
 }

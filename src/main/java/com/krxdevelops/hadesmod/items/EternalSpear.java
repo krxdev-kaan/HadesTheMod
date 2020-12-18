@@ -2,13 +2,23 @@ package com.krxdevelops.hadesmod.items;
 
 import com.google.common.collect.Multimap;
 import com.krxdevelops.hadesmod.HadesMod;
+import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegis;
+import com.krxdevelops.hadesmod.capabilities.aegis.IAegis;
+import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
+import com.krxdevelops.hadesmod.entities.EntityShieldOfChaos;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasModel;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.world.World;
 
 public class EternalSpear extends Item implements IHasModel
 {
@@ -31,6 +41,26 @@ public class EternalSpear extends Item implements IHasModel
     public float getAttackDamage()
     {
         return this.attackDamage;
+    }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged)
+    {
+        return false;
+    }
+
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
+    {
+        ItemStack stack = playerIn.getHeldItem(handIn);
+        if (handIn != EnumHand.MAIN_HAND)
+            return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
+        if (!worldIn.isRemote)
+        {
+            EntityEternalSpear entitySpear = new EntityEternalSpear(worldIn, playerIn);
+            entitySpear.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.0F, 0.0F);
+            worldIn.spawnEntity(entitySpear);
+        }
+        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
     }
 
     public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot)

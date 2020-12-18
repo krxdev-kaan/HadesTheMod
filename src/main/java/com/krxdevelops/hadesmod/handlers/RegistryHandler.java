@@ -1,25 +1,19 @@
 package com.krxdevelops.hadesmod.handlers;
 
+import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
 import com.krxdevelops.hadesmod.entities.EntityShieldOfChaos;
 import com.krxdevelops.hadesmod.init.BlockInit;
-import com.krxdevelops.hadesmod.init.EntityInit;
 import com.krxdevelops.hadesmod.init.ItemInit;
-import com.krxdevelops.hadesmod.render.RenderShieldOfChaos;
 import com.krxdevelops.hadesmod.util.IHasModel;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.entity.RenderSnowball;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -72,6 +66,13 @@ public class RegistryHandler
                 .entity(EntityShieldOfChaos.class)
                 .id(new ResourceLocation("hadesmod", "shield_of_chaos"), 0)
                 .name("shield_of_chaos")
+                .tracker(160, 3, true)
+                .build());
+
+        event.getRegistry().register(EntityEntryBuilder.create()
+                .entity(EntityEternalSpear.class)
+                .id(new ResourceLocation("hadesmod", "eternal_spear"), 0)
+                .name("eternal_spear")
                 .tracker(160, 3, true)
                 .build());
     }
