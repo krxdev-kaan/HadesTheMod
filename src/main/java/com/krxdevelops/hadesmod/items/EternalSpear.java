@@ -9,14 +9,13 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemSword;
 
-public class StygiusSword extends Item implements IHasModel
+public class EternalSpear extends Item implements IHasModel
 {
     public float attackDamage;
     public float attackSpeed;
 
-    public StygiusSword(String name, float attackDamage, float attackSpeed)
+    public EternalSpear(String name, float attackDamage, float attackSpeed)
     {
         setUnlocalizedName(name);
         setRegistryName(name);

@@ -46,7 +46,7 @@ public class ShieldOfChaos extends Item implements IHasModel
         setCreativeTab(CreativeTabs.COMBAT);
         maxStackSize = 1;
         setMaxDamage(-1);
-        this.attackDamage = attackDamage + 3.0F;
+        this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
 
         addPropertyOverride(new ResourceLocation("blocking"), new IItemPropertyGetter()
