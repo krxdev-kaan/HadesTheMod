@@ -41,7 +41,10 @@ public class RenderEternalSpear<T extends Entity> extends Render<T>
             GlStateManager.enableOutlineMode(this.getTeamColor(entity));
         }
 
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(0F, -1F, 0F);
         this.itemRenderer.renderItem(this.getStackToRender(entity), ItemCameraTransforms.TransformType.GROUND);
+        GlStateManager.popMatrix();
 
         if (this.renderOutlines)
         {

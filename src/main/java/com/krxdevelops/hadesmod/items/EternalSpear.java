@@ -54,7 +54,7 @@ public class EternalSpear extends Item implements IHasModel
         if (!worldIn.isRemote)
         {
             EntityEternalSpear entitySpear = new EntityEternalSpear(worldIn, playerIn);
-            entitySpear.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.0F, 0.0F);
+            entitySpear.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 2.0F, 0.0F);
             worldIn.spawnEntity(entitySpear);
         }
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
