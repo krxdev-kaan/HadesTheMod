@@ -35,15 +35,15 @@ public class EntityEternalSpear extends EntityArrow
     private int inData;
     private int ticksInAir;
     private int knockbackStrength;
-    private long ticksWhenSpawned = -1;
     private double damage;
-    private AxisAlignedBB collider = new AxisAlignedBB(0, 0, 0, 2, 4, 6);
+
+    protected EntityLivingBase piercedEntity;
 
     public EntityEternalSpear(World worldIn)
     {
         super(worldIn);
         this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
-        this.damage = 2.0D;
+        this.damage = 18.0D;
         this.xTile = -1;
         this.yTile = -1;
         this.zTile = -1;
@@ -53,11 +53,13 @@ public class EntityEternalSpear extends EntityArrow
     public EntityEternalSpear(World worldIn, double x, double y, double z)
     {
         super(worldIn, x, y, z);
+        this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
     }
 
     public EntityEternalSpear(World worldIn, EntityLivingBase throwerIn)
     {
         super(worldIn, throwerIn);
+        this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
     }
 
     protected float getGravityVelocity()
@@ -68,16 +70,12 @@ public class EntityEternalSpear extends EntityArrow
     @Override
     public void onUpdate()
     {
-        if (!world.isRemote)
+        if(piercedEntity == null)
+            super.onUpdate();
+        else
         {
-            if (ticksWhenSpawned == -1) ticksWhenSpawned = world.getTotalWorldTime();
-            else {
-                double ticksPassed = world.getTotalWorldTime() - ticksWhenSpawned;
-                if (ticksPassed > 60) this.setDead();
-            }
-        }
 
-        super.onUpdate();
+        }
     }
 
     @Override
@@ -174,22 +172,22 @@ public class EntityEternalSpear extends EntityArrow
             {
                 this.inTile.onEntityCollidedWithBlock(this.world, blockpos, iblockstate, this);
             }
-        }
 
-        if (!this.world.isRemote)
-        {
-            ((WorldServer)this.world).spawnParticle(
-                    EnumParticleTypes.BLOCK_CRACK,
-                    this.posX,
-                    this.posY,
-                    this.posZ,
-                    40,
-                    0.3D,
-                    0.3D,
-                    0.3D,
-                    0.0D,
-                    Block.getIdFromBlock(Blocks.COBBLESTONE)
-            );
+            if (!this.world.isRemote)
+            {
+                ((WorldServer)this.world).spawnParticle(
+                        EnumParticleTypes.BLOCK_CRACK,
+                        this.posX,
+                        this.posY,
+                        this.posZ,
+                        40,
+                        0.3D,
+                        0.3D,
+                        0.3D,
+                        0.0D,
+                        Block.getIdFromBlock(world.getBlockState(result.getBlockPos()).getBlock())
+                );
+            }
         }
     }
 }
