@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
+@Deprecated
 public class RenderFactoryEternalSpear<T extends Entity> implements IRenderFactory<T>
 {
     private final Item item;

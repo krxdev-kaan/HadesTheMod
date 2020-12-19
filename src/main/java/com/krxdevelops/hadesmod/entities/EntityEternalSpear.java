@@ -11,6 +11,7 @@ import net.minecraft.world.WorldServer;
 public class EntityEternalSpear extends EntityThrowable
 {
     private long ticksWhenSpawned = -1;
+
     public EntityEternalSpear(World worldIn)
     {
         super(worldIn);
@@ -18,7 +19,7 @@ public class EntityEternalSpear extends EntityThrowable
 
     public EntityEternalSpear(World worldIn, double x, double y, double z)
     {
-        super(worldIn, x ,y, z);
+        super(worldIn, x, y, z);
     }
 
     public EntityEternalSpear(World worldIn, EntityLivingBase throwerIn)
@@ -31,6 +32,7 @@ public class EntityEternalSpear extends EntityThrowable
         return 0.0001F;
     }
 
+    @Override
     public void onUpdate()
     {
         if (!world.isRemote)
@@ -45,6 +47,7 @@ public class EntityEternalSpear extends EntityThrowable
         super.onUpdate();
     }
 
+    @Override
     protected void onImpact(RayTraceResult result)
     {
         if (result.entityHit != null)

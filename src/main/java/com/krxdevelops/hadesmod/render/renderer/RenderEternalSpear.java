@@ -1,5 +1,6 @@
 package com.krxdevelops.hadesmod.render.renderer;
 
+import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -10,6 +11,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 
 public class RenderEternalSpear<T extends Entity> extends Render<T>
 {
@@ -28,10 +30,11 @@ public class RenderEternalSpear<T extends Entity> extends Render<T>
         GlStateManager.pushMatrix();
         GlStateManager.translate((float)x, (float)y, (float)z);
         GlStateManager.enableRescaleNormal();
-        GlStateManager.rotate((float)(this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-        GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate((float)MathHelper.clampedLerp(entity.prevRotationYaw, entity.rotationYaw, partialTicks) - 90.0F, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate((float)MathHelper.clampedLerp(entity.prevRotationPitch, entity.rotationPitch, partialTicks) + 90.0F, 0.0F, 0.0F, 1.0F);
+        GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
         this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-        System.out.println("Ticks now: " + partialTicks);
+
         if (this.renderOutlines)
         {
             GlStateManager.enableColorMaterial();

@@ -62,16 +62,18 @@ public class RegistryHandler
     {
         System.out.println("Registering Entity");
 
+        int id = 0;
+
         event.getRegistry().register(EntityEntryBuilder.create()
                 .entity(EntityShieldOfChaos.class)
-                .id(new ResourceLocation("hadesmod", "shield_of_chaos"), 0)
+                .id(new ResourceLocation("hadesmod", "shield_of_chaos"), id++)
                 .name("shield_of_chaos")
                 .tracker(160, 3, true)
                 .build());
 
         event.getRegistry().register(EntityEntryBuilder.create()
                 .entity(EntityEternalSpear.class)
-                .id(new ResourceLocation("hadesmod", "eternal_spear"), 0)
+                .id(new ResourceLocation("hadesmod", "eternal_spear"), id++)
                 .name("eternal_spear")
                 .tracker(160, 3, true)
                 .build());

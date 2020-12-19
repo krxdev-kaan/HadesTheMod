@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
+@Deprecated
 public class RenderFactoryShieldOfChaos<T extends Entity> implements IRenderFactory<T>
 {
     private final Item item;
