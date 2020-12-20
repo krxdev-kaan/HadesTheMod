@@ -33,7 +33,7 @@ public class EntityEternalSpear extends EntityArrow
     private int ticksInAir;
     private int ticksInGround;
     private int knockbackStrength;
-    private double damage;
+    private float damage;
 
     protected EntityLivingBase piercedEntity;
     protected double pierceOffsetX = -1;
@@ -44,7 +44,7 @@ public class EntityEternalSpear extends EntityArrow
     {
         super(worldIn);
         this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
-        this.damage = 18.0D;
+        this.damage = 18.0F;
         this.xTile = -1;
         this.yTile = -1;
         this.zTile = -1;
@@ -55,13 +55,14 @@ public class EntityEternalSpear extends EntityArrow
     {
         super(worldIn, x, y, z);
         this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
+        this.damage = 18.0F;
     }
 
     public EntityEternalSpear(World worldIn, EntityLivingBase throwerIn)
     {
         super(worldIn, throwerIn);
         this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
-
+        this.damage = 18.0F;
     }
 
     protected float getGravityVelocity()
@@ -123,6 +124,11 @@ public class EntityEternalSpear extends EntityArrow
                 else
                 {
                     ++this.ticksInGround;
+
+                    if (this.ticksInGround >= 1200)
+                    {
+                        this.setDead();
+                    }
                 }
 
                 ++this.timeInGround;
@@ -267,7 +273,7 @@ public class EntityEternalSpear extends EntityArrow
                 damagesource = DamageSource.causeArrowDamage(this, this.shootingEntity);
             }
 
-            if (entity.attackEntityFrom(damagesource, (float)this.damage))
+            if (entity.attackEntityFrom(damagesource, this.damage))
             {
                 if (entity instanceof EntityLivingBase)
                 {
@@ -372,6 +378,25 @@ public class EntityEternalSpear extends EntityArrow
                         Block.getIdFromBlock(world.getBlockState(result.getBlockPos()).getBlock())
                 );
             }
+        }
+    }
+
+    public void recoverDamage(float recoveryDamage)
+    {
+        if (piercedEntity != null)
+        {
+            DamageSource damagesource;
+
+            if (this.shootingEntity == null)
+            {
+                damagesource = DamageSource.causeArrowDamage(this, this);
+            }
+            else
+            {
+                damagesource = DamageSource.causeArrowDamage(this, this.shootingEntity);
+            }
+
+            piercedEntity.attackEntityFrom(damagesource, recoveryDamage);
         }
     }
 }

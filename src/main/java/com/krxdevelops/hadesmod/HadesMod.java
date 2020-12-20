@@ -1,6 +1,7 @@
 package com.krxdevelops.hadesmod;
 
 import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegis;
+import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVaratha;
 import com.krxdevelops.hadesmod.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -28,7 +29,9 @@ public class HadesMod
         logger = event.getModLog();
         proxy.preInit(event);
 
+        // Register Capabilities
         CapabilityAegis.register();
+        CapabilityVaratha.register();
     }
 
     @EventHandler
@@ -39,7 +42,5 @@ public class HadesMod
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-
     }
-
 }

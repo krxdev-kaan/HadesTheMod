@@ -2,6 +2,7 @@ package com.krxdevelops.hadesmod.items;
 
 import com.google.common.collect.Multimap;
 import com.krxdevelops.hadesmod.HadesMod;
+import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVaratha;
 import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasModel;
@@ -51,13 +52,20 @@ public class EternalSpear extends Item implements IHasModel
         ItemStack stack = playerIn.getHeldItem(handIn);
         if (handIn != EnumHand.MAIN_HAND)
             return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
+        ItemStack recoverStack = null;
         if (!worldIn.isRemote)
         {
             EntityEternalSpear entitySpear = new EntityEternalSpear(worldIn, playerIn);
             entitySpear.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 2.0F, 0.0F);
             worldIn.spawnEntity(entitySpear);
+
+            recoverStack = new ItemStack(ItemInit.eternalSpearRecoverItem, 1);
+            if (recoverStack.hasCapability(CapabilityVaratha.ETERNAL_SPEAR_RECOVER_CAPABILITY, null))
+            {
+                recoverStack.getCapability(CapabilityVaratha.ETERNAL_SPEAR_RECOVER_CAPABILITY, null).setEternalSpearEntity(entitySpear);
+            }
         }
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, recoverStack != null ? recoverStack : stack);
     }
 
     public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot)
