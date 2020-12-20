@@ -75,7 +75,7 @@ public class RegistryHandler
                 .entity(EntityEternalSpear.class)
                 .id(new ResourceLocation("hadesmod", "eternal_spear"), id++)
                 .name("eternal_spear")
-                .tracker(160, 3, true)
+                .tracker(160, 1, true)
                 .build());
     }
 }
