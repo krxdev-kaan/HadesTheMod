@@ -1,7 +1,7 @@
 package com.krxdevelops.hadesmod.items;
 
 import com.krxdevelops.hadesmod.HadesMod;
-import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVaratha;
+import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVarathaRecover;
 import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasModel;
@@ -33,9 +33,9 @@ public class EternalSpearRecoverItem extends Item implements IHasModel
         if (!worldIn.isRemote)
         {
             spearStack = new ItemStack(ItemInit.eternalSpear, 1);
-            if (stack.hasCapability(CapabilityVaratha.ETERNAL_SPEAR_RECOVER_CAPABILITY, null))
+            if (stack.hasCapability(CapabilityVarathaRecover.ETERNAL_SPEAR_RECOVER_CAPABILITY, null))
             {
-                EntityEternalSpear entityEternalSpear = stack.getCapability(CapabilityVaratha.ETERNAL_SPEAR_RECOVER_CAPABILITY, null).getEternalSpearEntity();
+                EntityEternalSpear entityEternalSpear = stack.getCapability(CapabilityVarathaRecover.ETERNAL_SPEAR_RECOVER_CAPABILITY, null).getEternalSpearEntity();
                 if (entityEternalSpear != null)
                 {
                     entityEternalSpear.recoverDamage(4F);

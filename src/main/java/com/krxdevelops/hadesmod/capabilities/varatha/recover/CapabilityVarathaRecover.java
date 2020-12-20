@@ -10,7 +10,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 
 import java.util.concurrent.Callable;
 
-public class CapabilityVaratha
+public class CapabilityVarathaRecover
 {
     @CapabilityInject(IVarathaRecover.class)
     public static Capability<IVarathaRecover> ETERNAL_SPEAR_RECOVER_CAPABILITY = null;

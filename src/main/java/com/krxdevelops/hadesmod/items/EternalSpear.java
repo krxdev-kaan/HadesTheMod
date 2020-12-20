@@ -2,7 +2,7 @@ package com.krxdevelops.hadesmod.items;
 
 import com.google.common.collect.Multimap;
 import com.krxdevelops.hadesmod.HadesMod;
-import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVaratha;
+import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVarathaRecover;
 import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasModel;
@@ -60,9 +60,9 @@ public class EternalSpear extends Item implements IHasModel
             worldIn.spawnEntity(entitySpear);
 
             recoverStack = new ItemStack(ItemInit.eternalSpearRecoverItem, 1);
-            if (recoverStack.hasCapability(CapabilityVaratha.ETERNAL_SPEAR_RECOVER_CAPABILITY, null))
+            if (recoverStack.hasCapability(CapabilityVarathaRecover.ETERNAL_SPEAR_RECOVER_CAPABILITY, null))
             {
-                recoverStack.getCapability(CapabilityVaratha.ETERNAL_SPEAR_RECOVER_CAPABILITY, null).setEternalSpearEntity(entitySpear);
+                recoverStack.getCapability(CapabilityVarathaRecover.ETERNAL_SPEAR_RECOVER_CAPABILITY, null).setEternalSpearEntity(entitySpear);
             }
         }
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, recoverStack != null ? recoverStack : stack);
