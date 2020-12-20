@@ -73,7 +73,7 @@ public class EntityEternalSpear extends EntityArrow
     @Override
     public void onUpdate()
     {
-        if (piercedEntity == null)
+        if (piercedEntity == null || piercedEntity.isDead)
         {
             if (!this.world.isRemote)
             {
@@ -242,9 +242,12 @@ public class EntityEternalSpear extends EntityArrow
             {
                 if(!this.world.isRemote)
                 {
-                    this.setPosition(piercedEntity.posX + pierceOffsetX,
-                                    piercedEntity.posY + pierceOffsetY,
-                                    piercedEntity.posZ + pierceOffsetZ);
+                    if (!piercedEntity.isDead)
+                    {
+                        this.setPosition(piercedEntity.posX + pierceOffsetX,
+                                piercedEntity.posY + pierceOffsetY,
+                                piercedEntity.posZ + pierceOffsetZ);
+                    }
                 }
             }
     }
