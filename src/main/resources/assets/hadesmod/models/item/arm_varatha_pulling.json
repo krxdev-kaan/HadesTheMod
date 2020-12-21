@@ -1,0 +1,38 @@
+{
+	"parent": "hadesmod:item/arm_varatha",
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [-4, -89, -5],
+			"translation": [0, -5, 1.5],
+			"scale": [1.53, 1.51, 1.5]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [-4, -89, -5],
+			"translation": [0, -5, 1.5],
+			"scale": [1.53, 1.51, 1.5]
+		},
+		"firstperson_righthand": {
+			"rotation": [-93, 60, 1],
+			"translation": [0.25, 12, 6.75],
+			"scale": [1.1, 1.14, 1.09]
+		},
+		"firstperson_lefthand": {
+			"rotation": [-91, 64, 0],
+			"translation": [-1.5, 12, 8.5],
+			"scale": [1.1, 1.14, 1.09]
+		},
+		"ground": {
+			"translation": [0, 11, 0],
+			"scale": [1.66, 1.65, 1.65]
+		},
+		"gui": {
+			"rotation": [12, 169, 42],
+			"translation": [-2.5, -2.5, 0],
+			"scale": [0.84, 0.84, 0.83]
+		},
+		"fixed": {
+			"translation": [0, -7.25, -2.25],
+			"scale": [1.75, 1.79, 1.76]
+		}
+	}
+}

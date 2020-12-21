@@ -1,6 +1,7 @@
 package com.krxdevelops.hadesmod;
 
 import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegis;
+import com.krxdevelops.hadesmod.capabilities.varatha.CapabilityVaratha;
 import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVarathaRecover;
 import com.krxdevelops.hadesmod.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
@@ -32,6 +33,7 @@ public class HadesMod
         // Register Capabilities
         CapabilityAegis.register();
         CapabilityVarathaRecover.register();
+        CapabilityVaratha.register();
     }
 
     @EventHandler
