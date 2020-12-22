@@ -1,0 +1,15 @@
+item.arm_stygius.name=Stygian Blade
+item.arm_varatha.name=Eternal Spear
+item.arm_aegis.name=Shield Of Chaos
+
+item.eternal_spear_recover.name=Recover/Pull Eternal Spear
+
+item.darkness.name=Darkness
+item.titanblood.name=Titanblood
+item.chthonic_key.name=Chthonic Key
+item.ore_stygian.name=Stygian Ore Shard
+item.ingot_stygian.name=Stygian Ingot
+
+tile.block_tartarus.name=Tartarus Block
+tile.oreblock_stygian.name=Stygian Ore
+tile.block_stygian.name=Stygian Block
