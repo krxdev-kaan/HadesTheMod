@@ -20,7 +20,6 @@ public class EternalSpearRecoverItem extends Item implements IHasModel
     {
         setUnlocalizedName(name);
         setRegistryName(name);
-        setCreativeTab(CreativeTabs.MATERIALS);
         this.maxStackSize = 1;
 
         ItemInit.ITEMS.add(this);
