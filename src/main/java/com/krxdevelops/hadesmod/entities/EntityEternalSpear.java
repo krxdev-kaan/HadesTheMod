@@ -56,6 +56,10 @@ public class EntityEternalSpear extends EntityArrow
         super(worldIn, x, y, z);
         this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
         this.damage = 18.0F;
+        this.xTile = -1;
+        this.yTile = -1;
+        this.zTile = -1;
+        this.knockbackStrength = 1;
     }
 
     public EntityEternalSpear(World worldIn, EntityLivingBase throwerIn)
@@ -63,6 +67,10 @@ public class EntityEternalSpear extends EntityArrow
         super(worldIn, throwerIn);
         this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
         this.damage = 18.0F;
+        this.xTile = -1;
+        this.yTile = -1;
+        this.zTile = -1;
+        this.knockbackStrength = 1;
     }
 
     protected float getGravityVelocity()

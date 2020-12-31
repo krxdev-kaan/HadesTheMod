@@ -113,7 +113,7 @@ public class HeartSeekingBow extends Item implements IHasModel
         {
             if (!worldIn.isRemote)
             {
-                EntityCoronachtArrow coronachtArrow = new EntityCoronachtArrow(worldIn, entityLiving);
+                EntityCoronachtArrow coronachtArrow = new EntityCoronachtArrow(worldIn, entityLiving, 15F);
                 coronachtArrow.rotationPitch = playerIn.rotationPitch;
                 coronachtArrow.rotationYaw = playerIn.rotationYaw;
                 coronachtArrow.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, f * 3.0F, 1.0F);
