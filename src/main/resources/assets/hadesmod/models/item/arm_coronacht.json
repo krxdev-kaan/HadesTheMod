@@ -5146,11 +5146,60 @@
 			}
 		}
 	],
+	"overrides": [
+		{
+			"predicate": {
+				"pulling": 1
+			},
+			"model": "hadesmod:item/arm_coronacht_pulling_0"
+		},
+		{
+			"predicate": {
+				"pulling": 1,
+				"pull": 0.65
+			},
+			"model": "hadesmod:item/arm_coronacht_pulling_1"
+		},
+		{
+			"predicate": {
+				"pulling": 1,
+				"pull": 0.9
+			},
+			"model": "hadesmod:item/arm_coronacht_pulling_2"
+		}
+	],
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [0, 90, 0],
 			"translation": [0.5, -2.5, 3.5],
 			"scale": [1.69, 1.69, 1.69]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [0, -90, 0],
+			"translation": [0.5, -2.5, 3.5],
+			"scale": [1.69, 1.69, 1.69]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 90, 0],
+			"translation": [0.5, 5.5, 1.5]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, -90, 0],
+			"translation": [0.5, 5.5, 1.5]
+		},
+		"ground": {
+			"translation": [0, 5, 0],
+			"scale": [1.22, 1.16, 1.17]
+		},
+		"gui": {
+			"rotation": [-180, -180, -45],
+			"translation": [-1.25, 1.75, 0],
+			"scale": [1.19, 1.25, 1.29]
+		},
+		"fixed": {
+			"rotation": [0, 0, 47],
+			"translation": [1.75, 1.5, -1],
+			"scale": [1.44, 1.42, 1.47]
 		}
 	},
 	"groups": [
@@ -5190,28 +5239,6 @@
 			"name": "Coronacht String",
 			"origin": [14.0375, 18.4875, 15.55625],
 			"children": [387, 388, 389, 390, 391, 392, 393, 394]
-		}
-	],
-	"overrides": [
-		{
-			"predicate": {
-				"pulling": 1
-			},
-			"model": "hadesmod:item/arm_coronacht_pulling_0"
-		},
-		{
-			"predicate": {
-				"pulling": 1,
-				"pull": 0.65
-			},
-			"model": "hadesmod:item/arm_coronacht_pulling_1"
-		},
-		{
-			"predicate": {
-				"pulling": 1,
-				"pull": 0.9
-			},
-			"model": "hadesmod:item/arm_coronacht_pulling_2"
 		}
 	]
 }
