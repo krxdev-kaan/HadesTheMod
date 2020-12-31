@@ -1,8 +1,10 @@
 package com.krxdevelops.hadesmod.proxy;
 
+import com.krxdevelops.hadesmod.entities.EntityCoronachtArrow;
 import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
 import com.krxdevelops.hadesmod.entities.EntityShieldOfChaos;
 import com.krxdevelops.hadesmod.init.ItemInit;
+import com.krxdevelops.hadesmod.render.renderer.RenderCoronachtArrow;
 import com.krxdevelops.hadesmod.render.renderer.RenderEternalSpear;
 import com.krxdevelops.hadesmod.render.renderer.RenderShieldOfChaos;
 import net.minecraft.client.Minecraft;
@@ -20,6 +22,7 @@ public class ClientProxy extends CommonProxy
         System.out.println("Registering Renderers");
         RenderingRegistry.registerEntityRenderingHandler(EntityShieldOfChaos.class, m -> new RenderShieldOfChaos<>(m, ItemInit.shieldOfChaos, Minecraft.getMinecraft().getRenderItem()));
         RenderingRegistry.registerEntityRenderingHandler(EntityEternalSpear.class, m -> new RenderEternalSpear<>(m, ItemInit.eternalSpear, Minecraft.getMinecraft().getRenderItem()));
+        RenderingRegistry.registerEntityRenderingHandler(EntityCoronachtArrow.class, m -> new RenderCoronachtArrow<>(m));
     }
 
     @Override

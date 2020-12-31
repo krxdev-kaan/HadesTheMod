@@ -4,6 +4,7 @@ import com.krxdevelops.hadesmod.HadesMod;
 import com.krxdevelops.hadesmod.capabilities.varatha.CapabilityVaratha;
 import com.krxdevelops.hadesmod.capabilities.varatha.IVaratha;
 import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVarathaRecover;
+import com.krxdevelops.hadesmod.entities.EntityCoronachtArrow;
 import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasModel;
@@ -112,18 +113,15 @@ public class HeartSeekingBow extends Item implements IHasModel
         {
             if (!worldIn.isRemote)
             {
-                /*EntityArrow entityarrow = itemarrow.createArrow(worldIn, stack, entityplayer);
-                entityarrow.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, f * 3.0F, 1.0F);
+                EntityCoronachtArrow coronachtArrow = new EntityCoronachtArrow(worldIn, entityLiving);
+                coronachtArrow.rotationPitch = playerIn.rotationPitch;
+                coronachtArrow.rotationYaw = playerIn.rotationYaw;
+                coronachtArrow.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, f * 3.0F, 1.0F);
 
-                if (f == 1.0F)
-                {
-                    entityarrow.setIsCritical(true);
-                }
-
-                worldIn.spawnEntity(entityarrow);*/
+                worldIn.spawnEntity(coronachtArrow);
             }
 
-            worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+            worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
         }
     }
 
