@@ -1,10 +1,10 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "block/netherite_block",
-		"1": "block/gold_block",
-		"2": "block/bubble_coral_block",
-		"particle": "block/netherite_block"
+		"0": "hadesmod:arm_malphon/netherite_block",
+		"1": "hadesmod:arm_malphon/gold_block",
+		"2": "hadesmod:arm_malphon/bubble_coral_block",
+		"particle": "hadesmod:arm_malphon/netherite_block"
 	},
 	"elements": [
 		{
