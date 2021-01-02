@@ -10,6 +10,7 @@ import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasModel;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -27,13 +28,23 @@ import javax.annotation.Nullable;
 
 public class HeartSeekingBow extends Item implements IHasModel
 {
-    public HeartSeekingBow(String name, float initialDamage, float moderateDamage, float maxDamage)
+    private float initialDamage;
+    private float maxDamage;
+    private float specialDamage;
+    private int spreadArrowCount;
+
+    public HeartSeekingBow(String name, float initialDamage, float maxDamage, float specialDamage, int spreadArrowCount)
     {
         setUnlocalizedName(name);
         setRegistryName(name);
         setCreativeTab(CreativeTabs.COMBAT);
         this.maxStackSize = 1;
         this.setMaxDamage(-1);
+
+        this.initialDamage = initialDamage;
+        this.maxDamage = maxDamage;
+        this.specialDamage = specialDamage;
+        this.spreadArrowCount = spreadArrowCount;
 
         this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter()
         {
@@ -96,7 +107,23 @@ public class HeartSeekingBow extends Item implements IHasModel
         ItemStack stack = playerIn.getHeldItem(handIn);
         if (handIn != EnumHand.MAIN_HAND)
             return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
-        playerIn.setActiveHand(handIn);
+        if (!playerIn.isSneaking())
+        {
+            playerIn.setActiveHand(handIn);
+        }
+        else
+        {
+            for (int i = 0; i < spreadArrowCount; i++)
+            {
+                if (!worldIn.isRemote)
+                {
+                    EntityCoronachtArrow coronachtArrow = new EntityCoronachtArrow(worldIn, playerIn, specialDamage, false);
+                    coronachtArrow.shoot(playerIn, playerIn.rotationPitch, (playerIn.rotationYaw - (i-((spreadArrowCount-1)/2)) * 5), 0.0F, 2.7F, 1.0F);
+
+                    worldIn.spawnEntity(coronachtArrow);
+                }
+            }
+        }
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
     }
 
@@ -113,7 +140,7 @@ public class HeartSeekingBow extends Item implements IHasModel
         {
             if (!worldIn.isRemote)
             {
-                EntityCoronachtArrow coronachtArrow = new EntityCoronachtArrow(worldIn, entityLiving, 15F);
+                EntityCoronachtArrow coronachtArrow = new EntityCoronachtArrow(worldIn, entityLiving, initialDamage + (maxDamage - initialDamage) * f, true);
                 coronachtArrow.rotationPitch = playerIn.rotationPitch;
                 coronachtArrow.rotationYaw = playerIn.rotationYaw;
                 coronachtArrow.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, f * 3.0F, 1.0F);

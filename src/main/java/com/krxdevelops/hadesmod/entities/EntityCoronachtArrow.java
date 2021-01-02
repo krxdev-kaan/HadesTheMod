@@ -35,6 +35,8 @@ public class EntityCoronachtArrow extends EntityArrow
     private int knockbackStrength;
 
     private float damageIn;
+    private boolean canPierce;
+    private boolean everHitTheGround = false;
     private List<Entity> piercedEntities = new ArrayList<Entity>();
 
     public EntityCoronachtArrow(World worldIn)
@@ -57,11 +59,12 @@ public class EntityCoronachtArrow extends EntityArrow
         this.knockbackStrength = 1;
     }
 
-    public EntityCoronachtArrow(World worldIn, EntityLivingBase shooter, float damageIn)
+    public EntityCoronachtArrow(World worldIn, EntityLivingBase shooter, float damageIn, boolean canPierce)
     {
         super(worldIn, shooter);
         this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
         this.damageIn = damageIn;
+        this.canPierce = canPierce;
         this.xTile = -1;
         this.yTile = -1;
         this.zTile = -1;
@@ -72,16 +75,19 @@ public class EntityCoronachtArrow extends EntityArrow
     {
         super.onUpdate();
 
-        this.world.spawnParticle(
-                EnumParticleTypes.SPELL,
-                this.posX,
-                this.posY,
-                this.posZ,
-                0.0D,
-                0.0D,
-                0.0D,
-                2
-        );
+        if (!this.everHitTheGround)
+        {
+            this.world.spawnParticle(
+                    EnumParticleTypes.SPELL,
+                    this.posX,
+                    this.posY,
+                    this.posZ,
+                    0.0D,
+                    0.0D,
+                    0.0D,
+                    2
+            );
+        }
     }
 
     @Override
@@ -136,6 +142,16 @@ public class EntityCoronachtArrow extends EntityArrow
                     }
 
                     this.playSound(SoundEvents.ENTITY_ARROW_HIT, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
+
+                    if (!canPierce)
+                        this.setDead();
+                }
+                else
+                {
+                    if (!this.world.isRemote && !canPierce)
+                    {
+                        this.setDead();
+                    }
                 }
             }
         }
@@ -157,6 +173,7 @@ public class EntityCoronachtArrow extends EntityArrow
             this.posZ -= this.motionZ / (double)f2 * 0.05000000074505806D;
             this.playSound(SoundEvents.ENTITY_ARROW_HIT, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
             this.inGround = true;
+            this.everHitTheGround = true;
             this.arrowShake = 7;
             this.setIsCritical(false);
 
