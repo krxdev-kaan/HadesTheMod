@@ -28,6 +28,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.Sys;
 
 import javax.annotation.Nullable;
 
@@ -121,16 +122,18 @@ public class HeartSeekingBow extends Item implements IHasModel
             ICoronacht capability = stack.getCapability(CapabilityCoronacht.HEART_SEEKING_BOW_CAPABILITY, null);
             if (capability.isAbleToUseSpecial(worldIn.getTotalWorldTime()))
             {
-                for (int i = 0; i < spreadArrowCount; i++)
+                if (!worldIn.isRemote)
                 {
-                    if (!worldIn.isRemote)
+                    for (int i = 0; i < spreadArrowCount; i++)
                     {
                         EntityCoronachtArrow coronachtArrow = new EntityCoronachtArrow(worldIn, playerIn, specialDamage, false);
-                        coronachtArrow.shoot(playerIn, playerIn.rotationPitch, (playerIn.rotationYaw - (i-((spreadArrowCount-1)/2)) * 5), 0.0F, 2.7F, 1.0F);
+                        coronachtArrow.shoot(playerIn, playerIn.rotationPitch, (playerIn.rotationYaw - (i - ((spreadArrowCount - 1) / 2)) * 5), 0.0F, 2.7F, 1.0F);
 
                         worldIn.spawnEntity(coronachtArrow);
                     }
                 }
+
+                capability.setLastSpecialTicks(worldIn.getTotalWorldTime());
             }
         }
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
@@ -164,7 +167,8 @@ public class HeartSeekingBow extends Item implements IHasModel
     public boolean showDurabilityBar(ItemStack stack)
     {
         ICoronacht capability = stack.getCapability(CapabilityCoronacht.HEART_SEEKING_BOW_CAPABILITY, null);
-        return capability.isAbleToUseSpecial(Minecraft.getMinecraft().world.getTotalWorldTime());
+        double ticksPassed = Minecraft.getMinecraft().world.getTotalWorldTime() - capability.getLastSpecialTicks();
+        return !(ticksPassed > 20);
     }
 
     public double getDurabilityForDisplay(ItemStack stack)
