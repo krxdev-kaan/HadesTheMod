@@ -1,6 +1,8 @@
 package com.krxdevelops.hadesmod;
 
 import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegis;
+import com.krxdevelops.hadesmod.capabilities.coronacht.CapabilityCoronacht;
+import com.krxdevelops.hadesmod.capabilities.malphon.CapabilityMalphon;
 import com.krxdevelops.hadesmod.capabilities.varatha.CapabilityVaratha;
 import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVarathaRecover;
 import com.krxdevelops.hadesmod.proxy.CommonProxy;
@@ -34,6 +36,8 @@ public class HadesMod
         CapabilityAegis.register();
         CapabilityVarathaRecover.register();
         CapabilityVaratha.register();
+        CapabilityCoronacht.register();
+        CapabilityMalphon.register();
     }
 
     @EventHandler

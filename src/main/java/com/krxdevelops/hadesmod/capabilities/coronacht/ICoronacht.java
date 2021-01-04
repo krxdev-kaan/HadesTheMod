@@ -2,5 +2,9 @@ package com.krxdevelops.hadesmod.capabilities.coronacht;
 
 public interface ICoronacht
 {
-    // IMPLEMENT LATER ON
+    public void setLastSpecialTicks(long lastSpecialTicks);
+
+    public boolean isAbleToUseSpecial(long worldTimeIn);
+
+    public long getLastSpecialTicks();
 }

@@ -20,6 +20,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -76,16 +77,30 @@ public class TwinFists extends Item implements IHasModel
 
         for (BlockPos bp : iterable)
         {
-            if (worldIn.getBlockState(bp).getBlock().isPassable(worldIn, bp))
+            float blockAngle = (float)(MathHelper.atan2(bp.getZ() - playerIn.posZ, bp.getX() - playerIn.posX) * (180D / Math.PI));
+            blockAngle = MathHelper.wrapDegrees(blockAngle);
+
+            float f = -MathHelper.sin(playerIn.rotationYaw * 0.017453292F);
+            float f2 = MathHelper.cos(playerIn.rotationYaw * 0.017453292F);
+            float predictedPlayerPosX = (float)(playerIn.posX + f);
+            float predictedPlayerPosZ = (float)(playerIn.posZ + f2);
+            float playerYawFromOrigin = (float)(MathHelper.atan2(predictedPlayerPosZ - playerIn.posZ, predictedPlayerPosX - playerIn.posX) * (180D / Math.PI));
+            float upperBound = (playerYawFromOrigin + 40F) % 360.0F;
+            float lowerBound = (playerYawFromOrigin - 40F) % 360.0F;
+
+            if (blockAngle >= lowerBound && blockAngle <= upperBound)
             {
-                worldIn.spawnParticle(EnumParticleTypes.CLOUD,
-                                        bp.getX(),
-                                        bp.getY(),
-                                        bp.getZ(),
-                                        0.0,
-                                        0.0,
-                                        0.0,
-                                        2);
+                if (worldIn.getBlockState(bp).getBlock().isPassable(worldIn, bp))
+                {
+                    worldIn.spawnParticle(EnumParticleTypes.CLOUD,
+                            bp.getX(),
+                            bp.getY(),
+                            bp.getZ(),
+                            0.0,
+                            0.0,
+                            0.0,
+                            2);
+                }
             }
         }
 
