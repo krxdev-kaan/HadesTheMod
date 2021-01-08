@@ -18,6 +18,7 @@ public class ItemInit
     public static final ShieldOfChaos shieldOfChaos = new ShieldOfChaos("arm_aegis", 18F, -2.9F);
     public static final HeartSeekingBow heartSeekingBow = new HeartSeekingBow("arm_coronacht", 15F, 45F, 5F, 7);
     public static final TwinFists twinFists = new TwinFists("arm_malphon", 10F, -1.8F, 4, 10F);
+    public static final AdamantRail adamantRail = new AdamantRail("arm_exagryph", 5F, 10F);
 
     public static final Item eternalSpearRecoverItem = new EternalSpearRecoverItem("eternal_spear_recover");
 

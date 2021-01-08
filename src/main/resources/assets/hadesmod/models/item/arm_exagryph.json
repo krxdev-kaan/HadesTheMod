@@ -1,14 +1,14 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "block/black_wool",
-		"1": "block/beacon",
-		"2": "block/light_blue_wool",
-		"4": "block/gold_block",
-		"5": "block/netherite_block",
-		"6": "Downloads/copper_block",
-		"7": "block/red_wool",
-		"particle": "block/black_wool"
+		"0": "hadesmod:arm_exagryph/black_wool",
+		"1": "hadesmod:arm_exagryph/beacon",
+		"2": "hadesmod:arm_exagryph/light_blue_wool",
+		"4": "hadesmod:arm_exagryph/gold_block",
+		"5": "hadesmod:arm_exagryph/netherite_block",
+		"6": "hadesmod:arm_exagryph/copper_block",
+		"7": "hadesmod:arm_exagryph/red_wool",
+		"particle": "hadesmod:arm_exagryph/black_wool"
 	},
 	"elements": [
 		{
