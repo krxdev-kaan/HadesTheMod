@@ -22,7 +22,7 @@ public class HadesMod
     public static HadesMod instance;
 
     @SidedProxy(clientSide = "com.krxdevelops.hadesmod.proxy.ClientProxy", serverSide = "com.krxdevelops.hadesmod.proxy.CommonProxy")
-    public  static CommonProxy proxy;
+    public static CommonProxy proxy;
 
     private static Logger logger;
 
