@@ -3,6 +3,7 @@ package com.krxdevelops.hadesmod.capabilities.varatha.recover;
 import com.krxdevelops.hadesmod.capabilities.aegis.Aegis;
 import com.krxdevelops.hadesmod.capabilities.aegis.IAegis;
 import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -21,12 +22,15 @@ public class CapabilityVarathaRecover
                     @Override
                     public NBTBase writeNBT(Capability<IVarathaRecover> capability, IVarathaRecover instance, EnumFacing side)
                     {
-                        return null;
+                        NBTTagCompound tag = new NBTTagCompound();
+                        tag.setInteger("eternalSpearID", instance.getEternalSpearEntity());
+                        return tag;
                     }
 
                     @Override
                     public void readNBT(Capability<IVarathaRecover> capability, IVarathaRecover instance, EnumFacing side, NBTBase nbt)
                     {
+                        instance.setEternalSpearEntity(((NBTTagCompound)nbt).getInteger("eternalSpearID"));
                     }
                 },
                 new Callable<IVarathaRecover>() {

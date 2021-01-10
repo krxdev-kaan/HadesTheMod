@@ -6,21 +6,21 @@ import net.minecraft.entity.EntityLivingBase;
 
 public class VarathaRecover implements IVarathaRecover
 {
-    protected EntityEternalSpear entityEternalSpear;
+    protected int entityEternalSpear;
 
     public VarathaRecover()
     {
-        entityEternalSpear = null;
+        entityEternalSpear = -1;
     }
 
     @Override
-    public EntityEternalSpear getEternalSpearEntity()
+    public int getEternalSpearEntity()
     {
         return entityEternalSpear;
     }
 
     @Override
-    public void setEternalSpearEntity(EntityEternalSpear entityLivingBase)
+    public void setEternalSpearEntity(int entityLivingBase)
     {
         this.entityEternalSpear = entityLivingBase;
     }

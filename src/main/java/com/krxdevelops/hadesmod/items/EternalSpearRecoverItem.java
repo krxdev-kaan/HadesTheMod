@@ -6,6 +6,7 @@ import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasModel;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -34,7 +35,9 @@ public class EternalSpearRecoverItem extends Item implements IHasModel
             spearStack = new ItemStack(ItemInit.eternalSpear, 1);
             if (stack.hasCapability(CapabilityVarathaRecover.ETERNAL_SPEAR_RECOVER_CAPABILITY, null))
             {
-                EntityEternalSpear entityEternalSpear = stack.getCapability(CapabilityVarathaRecover.ETERNAL_SPEAR_RECOVER_CAPABILITY, null).getEternalSpearEntity();
+                int eternalSpearID = stack.getCapability(CapabilityVarathaRecover.ETERNAL_SPEAR_RECOVER_CAPABILITY, null).getEternalSpearEntity();
+                Entity entity = worldIn.getEntityByID(eternalSpearID);
+                EntityEternalSpear entityEternalSpear = entity instanceof EntityEternalSpear ? (EntityEternalSpear)entity : null;
                 if (entityEternalSpear != null)
                 {
                     entityEternalSpear.recoverDamage(4F);

@@ -113,7 +113,7 @@ public class EternalSpear extends Item implements IHasModel
                     recoverStack = new ItemStack(ItemInit.eternalSpearRecoverItem, 1);
                     if (recoverStack.hasCapability(CapabilityVarathaRecover.ETERNAL_SPEAR_RECOVER_CAPABILITY, null))
                     {
-                        recoverStack.getCapability(CapabilityVarathaRecover.ETERNAL_SPEAR_RECOVER_CAPABILITY, null).setEternalSpearEntity(entitySpear);
+                        recoverStack.getCapability(CapabilityVarathaRecover.ETERNAL_SPEAR_RECOVER_CAPABILITY, null).setEternalSpearEntity(entitySpear.getEntityId());
                     }
 
                     int slotID = playerIn.inventory.currentItem;

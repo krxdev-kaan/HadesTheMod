@@ -6,6 +6,6 @@ import net.minecraft.entity.EntityLivingBase;
 
 public interface IVarathaRecover
 {
-    public EntityEternalSpear getEternalSpearEntity();
-    public void setEternalSpearEntity(EntityEternalSpear entityEternalSpear);
+    public int getEternalSpearEntity();
+    public void setEternalSpearEntity(int entityEternalSpear);
 }
