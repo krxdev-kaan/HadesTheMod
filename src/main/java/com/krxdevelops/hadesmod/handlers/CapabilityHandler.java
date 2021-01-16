@@ -2,6 +2,7 @@ package com.krxdevelops.hadesmod.handlers;
 
 import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegisProvider;
 import com.krxdevelops.hadesmod.capabilities.coronacht.CapabilityCoronachtProvider;
+import com.krxdevelops.hadesmod.capabilities.exagryph.CapabilityExagryphProvider;
 import com.krxdevelops.hadesmod.capabilities.malphon.CapabilityMalphonProvider;
 import com.krxdevelops.hadesmod.capabilities.varatha.CapabilityVarathaProvider;
 import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVarathaRecoverProvider;
@@ -36,6 +37,10 @@ public class CapabilityHandler
         else if (e.getObject().getItem() instanceof TwinFists)
         {
             e.addCapability(CapabilityMalphonProvider.KEY, new CapabilityMalphonProvider());
+        }
+        else if (e.getObject().getItem() instanceof AdamantRail)
+        {
+            e.addCapability(CapabilityExagryphProvider.KEY, new CapabilityExagryphProvider());
         }
     }
 }
