@@ -59,7 +59,7 @@ public class Exagryph implements IExagryph
     public boolean isAbleToFulfill(long worldTimeIn)
     {
         double ticksPassed = worldTimeIn - getLastReloadTicks();
-        return ticksPassed >= 20;
+        return ticksPassed >= 20 && getAmmo() <= 0;
     }
 
     @Override
