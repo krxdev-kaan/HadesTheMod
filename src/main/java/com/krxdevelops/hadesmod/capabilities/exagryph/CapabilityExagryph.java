@@ -26,6 +26,7 @@ public class CapabilityExagryph
                         tag.setLong("lastReloadTicks", instance.getLastReloadTicks());
                         tag.setLong("lastRocketTicks", instance.getLastRocketTicks());
                         tag.setInteger("ammo", instance.getAmmo());
+                        tag.setBoolean("reloadState", instance.getReloadingState());
                         return tag;
                     }
 
@@ -36,6 +37,7 @@ public class CapabilityExagryph
                         instance.setLastReloadTicks(tag.getLong("lastReloadTicks"));
                         instance.setLastReloadTicks(tag.getLong("lastRocketTicks"));
                         instance.setAmmo(tag.getInteger("ammo"));
+                        instance.setReloadingState(tag.getBoolean("reloadState"));
                     }
                 },
                 new Callable<IExagryph>() {

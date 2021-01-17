@@ -1,10 +1,22 @@
 package com.krxdevelops.hadesmod.items;
 
 import com.krxdevelops.hadesmod.HadesMod;
+import com.krxdevelops.hadesmod.capabilities.coronacht.CapabilityCoronacht;
+import com.krxdevelops.hadesmod.capabilities.coronacht.ICoronacht;
+import com.krxdevelops.hadesmod.capabilities.exagryph.CapabilityExagryph;
+import com.krxdevelops.hadesmod.capabilities.exagryph.IExagryph;
+import com.krxdevelops.hadesmod.entities.EntityCoronachtArrow;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasModel;
+import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.world.World;
 
 public class AdamantRail extends Item implements IHasModel
 {
@@ -20,6 +32,46 @@ public class AdamantRail extends Item implements IHasModel
         this.rocketDamage = rocketDamage;
 
         ItemInit.ITEMS.add(this);
+    }
+
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
+    {
+        ItemStack stack = playerIn.getHeldItem(handIn);
+        if (handIn != EnumHand.MAIN_HAND)
+            return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
+
+        IExagryph capability = stack.getCapability(CapabilityExagryph.ADAMANT_RAIL_CAPABILITY, null);
+        if(capability.getAmmo() > 0) capability.decreaseAmmo();
+        else
+        {
+            // Implement Reloading Thingie
+        }
+
+        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+    }
+
+    public boolean showDurabilityBar(ItemStack stack)
+    {
+        return true;
+    }
+
+    public double getDurabilityForDisplay(ItemStack stack)
+    {
+        IExagryph capability = stack.getCapability(CapabilityExagryph.ADAMANT_RAIL_CAPABILITY, null);
+        if (capability.getAmmo() > 0)
+        {
+            return 1 - capability.getAmmo() / 20;
+        }
+        else
+        {
+            long ticksPassed = Minecraft.getMinecraft().world.getTotalWorldTime() - capability.getLastReloadTicks();
+            return (1 - ticksPassed / 20) < 0 ? 0.0F : 1 - ticksPassed / 20;
+        }
+    }
+
+    public int getRGBDurabilityForDisplay(ItemStack stack)
+    {
+        return 0x00EFAE3E;
     }
 
     @Override

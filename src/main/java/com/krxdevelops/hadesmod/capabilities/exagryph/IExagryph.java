@@ -12,6 +12,9 @@ public interface IExagryph
     public void setLastRocketTicks(long lastRocketTicks);
     public long getLastRocketTicks();
 
+    public void setReloadingState(boolean state);
+    public boolean getReloadingState();
+
     public boolean isAbleToFulfill(long worldTimeIn);
     public boolean isAbleToShoot();
     public boolean isAbleToRocket(long worldTimeIn);

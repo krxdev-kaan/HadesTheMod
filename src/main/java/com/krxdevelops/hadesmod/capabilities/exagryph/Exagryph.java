@@ -5,12 +5,14 @@ public class Exagryph implements IExagryph
     protected long lastReloadTicks;
     protected long lastRocketTicks;
     protected int ammo;
+    protected boolean reloadState;
     
     public Exagryph()
     {
         lastReloadTicks = -1;
         lastRocketTicks = -1;
         ammo = 20;
+        reloadState = false;
     }
 
     @Override
@@ -53,6 +55,18 @@ public class Exagryph implements IExagryph
     public long getLastRocketTicks()
     {
         return this.lastRocketTicks;
+    }
+
+    @Override
+    public void setReloadingState(boolean state)
+    {
+        this.reloadState = state;
+    }
+
+    @Override
+    public boolean getReloadingState()
+    {
+        return this.reloadState;
     }
 
     @Override
