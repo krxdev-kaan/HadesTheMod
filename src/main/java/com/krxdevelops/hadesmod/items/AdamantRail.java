@@ -10,6 +10,7 @@ import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,6 +18,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
+import org.lwjgl.Sys;
 
 public class AdamantRail extends Item implements IHasModel
 {
@@ -41,13 +43,35 @@ public class AdamantRail extends Item implements IHasModel
             return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
 
         IExagryph capability = stack.getCapability(CapabilityExagryph.ADAMANT_RAIL_CAPABILITY, null);
-        if(capability.getAmmo() > 0) capability.decreaseAmmo();
+        if(capability.getAmmo() > 0)
+        {
+            capability.decreaseAmmo();
+
+            return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+        }
         else
         {
-            // Implement Reloading Thingie
-        }
+            if (!capability.getReloadingState())
+            {
+                capability.setReloadingState(true);
+                capability.setLastReloadTicks(worldIn.getTotalWorldTime());
+            }
 
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+            return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
+        }
+    }
+
+    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
+    {
+        IExagryph capability = stack.getCapability(CapabilityExagryph.ADAMANT_RAIL_CAPABILITY, null);
+        if (capability.getReloadingState())
+        {
+            if (capability.isAbleToFulfill(worldIn.getTotalWorldTime()))
+            {
+                capability.setReloadingState(false);
+                capability.setAmmo(20);
+            }
+        }
     }
 
     public boolean showDurabilityBar(ItemStack stack)
@@ -58,13 +82,13 @@ public class AdamantRail extends Item implements IHasModel
     public double getDurabilityForDisplay(ItemStack stack)
     {
         IExagryph capability = stack.getCapability(CapabilityExagryph.ADAMANT_RAIL_CAPABILITY, null);
-        if (capability.getAmmo() > 0)
+        if (!capability.getReloadingState())
         {
-            return 1 - capability.getAmmo() / 20;
+            return 1D - (double)capability.getAmmo() / 20;
         }
         else
         {
-            long ticksPassed = Minecraft.getMinecraft().world.getTotalWorldTime() - capability.getLastReloadTicks();
+            double ticksPassed = Minecraft.getMinecraft().world.getTotalWorldTime() - capability.getLastReloadTicks();
             return (1 - ticksPassed / 20) < 0 ? 0.0F : 1 - ticksPassed / 20;
         }
     }
