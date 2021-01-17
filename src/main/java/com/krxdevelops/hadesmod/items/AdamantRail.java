@@ -48,9 +48,12 @@ public class AdamantRail extends Item implements IHasModel
         {
             if (!playerIn.isSneaking())
             {
-                EntityExagryphBullet bullet = new EntityExagryphBullet(worldIn, playerIn);
-                bullet.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 5.0F, 0.5F);
-                worldIn.spawnEntity(bullet);
+                if (!worldIn.isRemote)
+                {
+                    EntityExagryphBullet bullet = new EntityExagryphBullet(worldIn, playerIn);
+                    bullet.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 5.0F, 0.5F);
+                    worldIn.spawnEntity(bullet);
+                }
                 capability.decreaseAmmo();
             }
             else

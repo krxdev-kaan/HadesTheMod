@@ -2,6 +2,7 @@ package com.krxdevelops.hadesmod.handlers;
 
 import com.krxdevelops.hadesmod.entities.EntityCoronachtArrow;
 import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
+import com.krxdevelops.hadesmod.entities.EntityExagryphBullet;
 import com.krxdevelops.hadesmod.entities.EntityShieldOfChaos;
 import com.krxdevelops.hadesmod.init.BlockInit;
 import com.krxdevelops.hadesmod.init.ItemInit;
@@ -91,6 +92,13 @@ public class RegistryHandler
                 .entity(EntityCoronachtArrow.class)
                 .id(new ResourceLocation("hadesmod", "coronacht_arrow"), id++)
                 .name("coronacht_arrow")
+                .tracker(160, 1, true)
+                .build());
+
+        event.getRegistry().register(EntityEntryBuilder.create()
+                .entity(EntityExagryphBullet.class)
+                .id(new ResourceLocation("hadesmod", "exagryph_bullet"), id++)
+                .name("exagryph_bullet")
                 .tracker(160, 1, true)
                 .build());
     }
