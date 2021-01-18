@@ -1,9 +1,6 @@
 package com.krxdevelops.hadesmod.handlers;
 
-import com.krxdevelops.hadesmod.entities.EntityCoronachtArrow;
-import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
-import com.krxdevelops.hadesmod.entities.EntityExagryphBullet;
-import com.krxdevelops.hadesmod.entities.EntityShieldOfChaos;
+import com.krxdevelops.hadesmod.entities.*;
 import com.krxdevelops.hadesmod.init.BlockInit;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasModel;
@@ -99,6 +96,13 @@ public class RegistryHandler
                 .entity(EntityExagryphBullet.class)
                 .id(new ResourceLocation("hadesmod", "exagryph_bullet"), id++)
                 .name("exagryph_bullet")
+                .tracker(160, 1, true)
+                .build());
+
+        event.getRegistry().register(EntityEntryBuilder.create()
+                .entity(EntityExagryphRocket.class)
+                .id(new ResourceLocation("hadesmod", "exagryph_rocket"), id++)
+                .name("exagryph_rocket")
                 .tracker(160, 1, true)
                 .build());
     }

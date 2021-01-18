@@ -40,7 +40,7 @@ public class EntityExagryphRocket extends EntityThrowable
 
     protected float getGravityVelocity()
     {
-        return 0.01F;
+        return 0.12F;
     }
 
     public void onUpdate()
@@ -48,6 +48,7 @@ public class EntityExagryphRocket extends EntityThrowable
         this.lastTickPosX = this.posX;
         this.lastTickPosY = this.posY;
         this.lastTickPosZ = this.posZ;
+        this.handleWaterMovement();
 
         if (this.throwableShake > 0)
         {
@@ -186,7 +187,7 @@ public class EntityExagryphRocket extends EntityThrowable
                     this.posY,
                     this.posZ,
                     0.0D,
-                    2.0D,
+                    0.5D,
                     0.0D,
                     50
             );

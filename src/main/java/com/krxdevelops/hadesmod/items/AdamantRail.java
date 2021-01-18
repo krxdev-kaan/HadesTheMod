@@ -7,6 +7,7 @@ import com.krxdevelops.hadesmod.capabilities.exagryph.CapabilityExagryph;
 import com.krxdevelops.hadesmod.capabilities.exagryph.IExagryph;
 import com.krxdevelops.hadesmod.entities.EntityCoronachtArrow;
 import com.krxdevelops.hadesmod.entities.EntityExagryphBullet;
+import com.krxdevelops.hadesmod.entities.EntityExagryphRocket;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasModel;
 import net.minecraft.client.Minecraft;
@@ -62,7 +63,9 @@ public class AdamantRail extends Item implements IHasModel
                 {
                     if (!worldIn.isRemote)
                     {
-                        // THROW ROCKET
+                        EntityExagryphRocket bullet = new EntityExagryphRocket(worldIn, playerIn);
+                        bullet.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 2.0F, 0.0F);
+                        worldIn.spawnEntity(bullet);
                     }
 
                     capability.setLastRocketTicks(worldIn.getTotalWorldTime());
