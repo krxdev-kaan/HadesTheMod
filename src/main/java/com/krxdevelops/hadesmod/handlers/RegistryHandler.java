@@ -5,8 +5,10 @@ import com.krxdevelops.hadesmod.init.BlockInit;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasModel;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -23,6 +25,8 @@ import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.Sys;
+
+import java.util.function.Function;
 
 @Mod.EventBusSubscriber
 public class RegistryHandler
@@ -110,16 +114,20 @@ public class RegistryHandler
     @SubscribeEvent
     public static void onModelBake(ModelBakeEvent event)
     {
-        IModel model;
-        try
+        String[] customModels = {"arrow_coronacht", "rocket_bomb_exagryph"};
+        for (String modelName : customModels)
         {
-            model = ModelLoaderRegistry.getModel(new ResourceLocation("hadesmod", "arrow_coronacht"));
+            IModel model;
+            try
+            {
+                model = ModelLoaderRegistry.getModel(new ResourceLocation("hadesmod", modelName));
+            }
+            catch (Exception e)
+            {
+                model = ModelLoaderRegistry.getMissingModel();
+            }
+            IBakedModel bakedModel = model.bake(model.getDefaultState(), DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
+            event.getModelRegistry().putObject(new ModelResourceLocation(new ResourceLocation("hadesmod", modelName), null), bakedModel);
         }
-        catch(Exception e)
-        {
-            model = ModelLoaderRegistry.getMissingModel();
-        }
-        IBakedModel bakedModel = model.bake(model.getDefaultState(), DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
-        event.getModelRegistry().putObject(new ModelResourceLocation(new ResourceLocation("hadesmod", "arrow_coronacht"), null), bakedModel);
     }
 }

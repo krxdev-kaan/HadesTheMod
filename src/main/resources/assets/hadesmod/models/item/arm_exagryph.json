@@ -8,6 +8,8 @@
 		"5": "hadesmod:arm_exagryph/netherite_block",
 		"6": "hadesmod:arm_exagryph/copper_block",
 		"7": "hadesmod:arm_exagryph/red_wool",
+		"8": "hadesmod:arm_exagryph/iron_block",
+		"9": "hadesmod:arm_exagryph/base",
 		"particle": "hadesmod:arm_exagryph/black_wool"
 	},
 	"elements": [

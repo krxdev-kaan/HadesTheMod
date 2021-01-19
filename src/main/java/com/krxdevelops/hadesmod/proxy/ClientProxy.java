@@ -2,10 +2,12 @@ package com.krxdevelops.hadesmod.proxy;
 
 import com.krxdevelops.hadesmod.entities.EntityCoronachtArrow;
 import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
+import com.krxdevelops.hadesmod.entities.EntityExagryphRocket;
 import com.krxdevelops.hadesmod.entities.EntityShieldOfChaos;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.render.renderer.RenderCoronachtArrow;
 import com.krxdevelops.hadesmod.render.renderer.RenderEternalSpear;
+import com.krxdevelops.hadesmod.render.renderer.RenderExagryphRocket;
 import com.krxdevelops.hadesmod.render.renderer.RenderShieldOfChaos;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -23,6 +25,7 @@ public class ClientProxy extends CommonProxy
         RenderingRegistry.registerEntityRenderingHandler(EntityShieldOfChaos.class, m -> new RenderShieldOfChaos<>(m, ItemInit.shieldOfChaos, Minecraft.getMinecraft().getRenderItem()));
         RenderingRegistry.registerEntityRenderingHandler(EntityEternalSpear.class, m -> new RenderEternalSpear<>(m, ItemInit.eternalSpear, Minecraft.getMinecraft().getRenderItem()));
         RenderingRegistry.registerEntityRenderingHandler(EntityCoronachtArrow.class, m -> new RenderCoronachtArrow<>(m));
+        RenderingRegistry.registerEntityRenderingHandler(EntityExagryphRocket.class, m -> new RenderExagryphRocket<>(m));
     }
 
     @Override
