@@ -13,6 +13,7 @@ import com.krxdevelops.hadesmod.util.IHasModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -56,6 +57,8 @@ public class AdamantRail extends Item implements IHasModel
                     worldIn.spawnEntity(bullet);
                 }
                 capability.decreaseAmmo();
+
+                return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
             }
             else
             {
@@ -69,10 +72,12 @@ public class AdamantRail extends Item implements IHasModel
                     }
 
                     capability.setLastRocketTicks(worldIn.getTotalWorldTime());
-                }
-            }
 
-            return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+                    return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+                }
+
+                return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
+            }
         }
         else
         {
