@@ -4,6 +4,7 @@ import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegisProvider;
 import com.krxdevelops.hadesmod.capabilities.coronacht.CapabilityCoronachtProvider;
 import com.krxdevelops.hadesmod.capabilities.exagryph.CapabilityExagryphProvider;
 import com.krxdevelops.hadesmod.capabilities.malphon.CapabilityMalphonProvider;
+import com.krxdevelops.hadesmod.capabilities.stygius.CapabilityStygiusProvider;
 import com.krxdevelops.hadesmod.capabilities.varatha.CapabilityVarathaProvider;
 import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVarathaRecoverProvider;
 import com.krxdevelops.hadesmod.items.*;
@@ -41,6 +42,10 @@ public class CapabilityHandler
         else if (e.getObject().getItem() instanceof AdamantRail)
         {
             e.addCapability(CapabilityExagryphProvider.KEY, new CapabilityExagryphProvider());
+        }
+        else if (e.getObject().getItem() instanceof StygiusSword)
+        {
+            e.addCapability(CapabilityStygiusProvider.KEY, new CapabilityStygiusProvider());
         }
     }
 }
