@@ -4,6 +4,7 @@ import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegis;
 import com.krxdevelops.hadesmod.capabilities.coronacht.CapabilityCoronacht;
 import com.krxdevelops.hadesmod.capabilities.exagryph.CapabilityExagryph;
 import com.krxdevelops.hadesmod.capabilities.malphon.CapabilityMalphon;
+import com.krxdevelops.hadesmod.capabilities.stygius.CapabilityStygius;
 import com.krxdevelops.hadesmod.capabilities.varatha.CapabilityVaratha;
 import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVarathaRecover;
 import com.krxdevelops.hadesmod.proxy.CommonProxy;
@@ -40,6 +41,7 @@ public class HadesMod
         CapabilityCoronacht.register();
         CapabilityMalphon.register();
         CapabilityExagryph.register();
+        CapabilityStygius.register();
     }
 
     @EventHandler
