@@ -27,7 +27,7 @@ public class Stygius implements IStygius
     public boolean isAbleToSmash(long worldTimeIn)
     {
         double ticksPassed = worldTimeIn - getTicksWhenStartedCharging();
-        return ticksPassed >= 30;
+        return ticksPassed >= 15;
     }
 
     @Override
