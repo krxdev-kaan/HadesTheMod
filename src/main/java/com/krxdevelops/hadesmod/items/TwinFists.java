@@ -116,6 +116,7 @@ public class TwinFists extends Item implements IHasModel
 
                 for (Entity e : entities)
                 {
+                    e.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), uppercutDamage);
                     if (e instanceof EntityPlayer)
                     {
                         e.addVelocity(0, 1.2D, 0);
@@ -125,9 +126,6 @@ public class TwinFists extends Item implements IHasModel
                     {
                         e.addVelocity(0, 1.2D, 0);
                     }
-
-                    // Breaks the uppercut velocity
-                    //e.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), uppercutDamage);
                 }
                 entityLiving.addVelocity(0, 0.8D, 0);
                 entityLiving.velocityChanged = true;
