@@ -25,13 +25,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 import java.util.List;
 
@@ -107,6 +106,14 @@ public class StygiusSword extends Item implements IHasModel
                     playerIn.addPotionEffect(new PotionEffect(Potion.getPotionById(4), 15));
                     playerIn.addPotionEffect(new PotionEffect(Potion.getPotionById(2), 15));
 
+                    Iterable<BlockPos> blockPosIterable = BlockPos.getAllInBox(
+                            (int) Math.ceil(playerIn.posX) - 1 - smashRadius,
+                            (int) Math.ceil(playerIn.posY),
+                            (int) Math.ceil(playerIn.posZ) - 1 - smashRadius,
+                            (int) Math.ceil(playerIn.posX) - 1 + smashRadius,
+                            (int) Math.ceil(playerIn.posY),
+                            (int) Math.ceil(playerIn.posZ) - 1 + smashRadius);
+
                     List<Entity> entities = worldIn.getEntitiesWithinAABBExcludingEntity(playerIn, new AxisAlignedBB(
                             (int) Math.ceil(playerIn.posX) - 1 - smashRadius,
                             (int) Math.ceil(playerIn.posY) - 1,
@@ -114,6 +121,21 @@ public class StygiusSword extends Item implements IHasModel
                             (int) Math.ceil(playerIn.posX) - 1 + smashRadius,
                             (int) Math.ceil(playerIn.posY) + 1,
                             (int) Math.ceil(playerIn.posZ) - 1 + smashRadius));
+
+                    for (BlockPos bp : blockPosIterable) {
+                        if (worldIn.getBlockState(bp).getBlock().isPassable(worldIn, bp))
+                        {
+                            ((WorldServer)worldIn).spawnParticle(EnumParticleTypes.FLAME,
+                                    bp.getX(),
+                                    bp.getY(),
+                                    bp.getZ(),
+                                    1,
+                                    bp.getX() - playerIn.posX,
+                                    0.05,
+                                    bp.getZ() - playerIn.posZ,
+                                    0.1);
+                        }
+                    }
 
                     for (Entity entity : entities)
                     {
