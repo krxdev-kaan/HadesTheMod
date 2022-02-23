@@ -103,8 +103,8 @@ public class StygiusSword extends Item implements IHasModel
             {
                 if (!worldIn.isRemote)
                 {
-                    playerIn.addPotionEffect(new PotionEffect(Potion.getPotionById(4), 15));
-                    playerIn.addPotionEffect(new PotionEffect(Potion.getPotionById(2), 15));
+                    playerIn.addPotionEffect(new PotionEffect(Potion.getPotionById(4), 15, 254));
+                    playerIn.addPotionEffect(new PotionEffect(Potion.getPotionById(2), 15, 3));
 
                     Iterable<BlockPos> blockPosIterable = BlockPos.getAllInBox(
                             (int) Math.ceil(playerIn.posX) - 1 - smashRadius,
