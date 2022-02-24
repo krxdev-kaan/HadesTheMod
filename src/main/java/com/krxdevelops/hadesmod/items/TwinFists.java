@@ -2,11 +2,10 @@ package com.krxdevelops.hadesmod.items;
 
 import com.google.common.collect.Multimap;
 import com.krxdevelops.hadesmod.HadesMod;
-import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegis;
-import com.krxdevelops.hadesmod.capabilities.aegis.IAegis;
 import com.krxdevelops.hadesmod.capabilities.malphon.CapabilityMalphon;
 import com.krxdevelops.hadesmod.capabilities.malphon.IMalphon;
 import com.krxdevelops.hadesmod.init.ItemInit;
+import com.krxdevelops.hadesmod.util.IHasCustomDamageSource;
 import com.krxdevelops.hadesmod.util.IHasModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
@@ -30,10 +29,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 
-public class TwinFists extends Item implements IHasModel
+public class TwinFists extends Item implements IHasModel, IHasCustomDamageSource
 {
     public float attackDamage;
     public float attackSpeed;
@@ -116,7 +114,7 @@ public class TwinFists extends Item implements IHasModel
 
                 for (Entity e : entities)
                 {
-                    e.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), uppercutDamage);
+                    e.attackEntityFrom(this.causeDamage(entityLiving), uppercutDamage);
                     if (e instanceof EntityPlayer)
                     {
                         e.addVelocity(0, 1.2D, 0);
@@ -206,4 +204,7 @@ public class TwinFists extends Item implements IHasModel
 
     @Override
     public void registerModels() { HadesMod.proxy.registerItemRenderer(this, 0, "inventory"); }
+
+    @Override
+    public DamageSource causeDamage(Entity entity) { return new EntityDamageSource("playerMalphonUppercut", entity); }
 }

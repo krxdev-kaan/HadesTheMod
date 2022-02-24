@@ -1,9 +1,12 @@
 package com.krxdevelops.hadesmod.entities;
 
 import com.krxdevelops.hadesmod.init.EntityInit;
+import com.krxdevelops.hadesmod.init.ItemInit;
+import com.krxdevelops.hadesmod.items.ShieldOfChaos;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityBlaze;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
@@ -21,19 +24,23 @@ import java.util.List;
 public class EntityShieldOfChaos extends EntityThrowable
 {
     private long ticksWhenSpawned = -1;
+    private ShieldOfChaos shieldOfChaos;
     public EntityShieldOfChaos(World worldIn)
     {
         super(worldIn);
+        this.shieldOfChaos = ItemInit.shieldOfChaos;
     }
 
     public EntityShieldOfChaos(World worldIn, double x, double y, double z)
     {
         super(worldIn, x ,y, z);
+        this.shieldOfChaos = ItemInit.shieldOfChaos;
     }
 
-    public EntityShieldOfChaos(World worldIn, EntityLivingBase throwerIn)
+    public EntityShieldOfChaos(World worldIn, EntityLivingBase throwerIn, ShieldOfChaos shieldOfChaos)
     {
         super(worldIn, throwerIn);
+        this.shieldOfChaos = shieldOfChaos;
     }
 
     protected float getGravityVelocity()
@@ -70,7 +77,7 @@ public class EntityShieldOfChaos extends EntityThrowable
     {
         if (result.entityHit != null)
         {
-            result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), (float)14F);
+            result.entityHit.attackEntityFrom(shieldOfChaos.causeDamage(this.getThrower()), (float)14F);
         }
 
         if (!this.world.isRemote)

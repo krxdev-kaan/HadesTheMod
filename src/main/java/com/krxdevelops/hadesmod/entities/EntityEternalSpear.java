@@ -1,6 +1,7 @@
 package com.krxdevelops.hadesmod.entities;
 
 import com.krxdevelops.hadesmod.init.ItemInit;
+import com.krxdevelops.hadesmod.items.EternalSpear;
 import javafx.scene.chart.Axis;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -40,9 +41,12 @@ public class EntityEternalSpear extends EntityArrow
     protected double pierceOffsetY = -1;
     protected double pierceOffsetZ = -1;
 
+    private EternalSpear eternalSpear;
+
     public EntityEternalSpear(World worldIn)
     {
         super(worldIn);
+        this.eternalSpear = ItemInit.eternalSpear;
         this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
         this.damage = 18.0F;
         this.xTile = -1;
@@ -54,6 +58,7 @@ public class EntityEternalSpear extends EntityArrow
     public EntityEternalSpear(World worldIn, double x, double y, double z)
     {
         super(worldIn, x, y, z);
+        this.eternalSpear = ItemInit.eternalSpear;
         this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
         this.damage = 18.0F;
         this.xTile = -1;
@@ -62,9 +67,10 @@ public class EntityEternalSpear extends EntityArrow
         this.knockbackStrength = 1;
     }
 
-    public EntityEternalSpear(World worldIn, EntityLivingBase throwerIn)
+    public EntityEternalSpear(World worldIn, EntityLivingBase throwerIn, EternalSpear eternalSpear)
     {
         super(worldIn, throwerIn);
+        this.eternalSpear = eternalSpear;
         this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
         this.damage = 18.0F;
         this.xTile = -1;
@@ -277,11 +283,11 @@ public class EntityEternalSpear extends EntityArrow
 
             if (this.shootingEntity == null)
             {
-                damagesource = DamageSource.causeArrowDamage(this, this);
+                damagesource = eternalSpear.causeDamage(this);
             }
             else
             {
-                damagesource = DamageSource.causeArrowDamage(this, this.shootingEntity);
+                damagesource = eternalSpear.causeDamage(shootingEntity);
             }
 
             if (entity.attackEntityFrom(damagesource, this.damage))
@@ -400,11 +406,11 @@ public class EntityEternalSpear extends EntityArrow
 
             if (this.shootingEntity == null)
             {
-                damagesource = DamageSource.causeArrowDamage(this, this);
+                damagesource = eternalSpear.causeDamage(this);
             }
             else
             {
-                damagesource = DamageSource.causeArrowDamage(this, this.shootingEntity);
+                damagesource = eternalSpear.causeDamage(shootingEntity);
             }
 
             piercedEntity.attackEntityFrom(damagesource, recoveryDamage);

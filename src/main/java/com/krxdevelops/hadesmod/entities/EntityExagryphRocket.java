@@ -223,7 +223,7 @@ public class EntityExagryphRocket extends EntityThrowable
     {
         if (!this.world.isRemote)
         {
-            this.world.createExplosion(null, result.hitVec.x, result.hitVec.y, result.hitVec.z, 5.0F, false);
+            this.world.createExplosion(thrower, result.hitVec.x, result.hitVec.y, result.hitVec.z, 5.0F, false);
             this.world.setEntityState(this, (byte)3);
             this.setDead();
         }

@@ -1,5 +1,7 @@
 package com.krxdevelops.hadesmod.entities;
 
+import com.krxdevelops.hadesmod.init.ItemInit;
+import com.krxdevelops.hadesmod.items.HeartSeekingBow;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -39,9 +41,12 @@ public class EntityCoronachtArrow extends EntityArrow
     private boolean everHitTheGround = false;
     private List<Entity> piercedEntities = new ArrayList<Entity>();
 
+    private HeartSeekingBow heartSeekingBow;
+
     public EntityCoronachtArrow(World worldIn)
     {
         super(worldIn);
+        this.heartSeekingBow = ItemInit.heartSeekingBow;
         this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
         this.xTile = -1;
         this.yTile = -1;
@@ -52,6 +57,7 @@ public class EntityCoronachtArrow extends EntityArrow
     public EntityCoronachtArrow(World worldIn, double x, double y, double z)
     {
         super(worldIn, x, y, z);
+        this.heartSeekingBow = ItemInit.heartSeekingBow;
         this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
         this.xTile = -1;
         this.yTile = -1;
@@ -59,9 +65,10 @@ public class EntityCoronachtArrow extends EntityArrow
         this.knockbackStrength = 1;
     }
 
-    public EntityCoronachtArrow(World worldIn, EntityLivingBase shooter, float damageIn, boolean canPierce)
+    public EntityCoronachtArrow(World worldIn, EntityLivingBase shooter, HeartSeekingBow heartSeekingBow, float damageIn, boolean canPierce)
     {
         super(worldIn, shooter);
+        this.heartSeekingBow = heartSeekingBow;
         this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
         this.damageIn = damageIn;
         this.canPierce = canPierce;
@@ -103,11 +110,11 @@ public class EntityCoronachtArrow extends EntityArrow
 
                 if (this.shootingEntity == null)
                 {
-                    damagesource = DamageSource.causeArrowDamage(this, this);
+                    damagesource = heartSeekingBow.causeDamage(this);
                 }
                 else
                 {
-                    damagesource = DamageSource.causeArrowDamage(this, this.shootingEntity);
+                    damagesource = heartSeekingBow.causeDamage(this.shootingEntity);
                 }
 
                 if (entity.attackEntityFrom(damagesource, damageIn))

@@ -2,12 +2,11 @@ package com.krxdevelops.hadesmod.items;
 
 import com.google.common.collect.Multimap;
 import com.krxdevelops.hadesmod.HadesMod;
-import com.krxdevelops.hadesmod.capabilities.aegis.Aegis;
 import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegis;
-import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegisProvider;
 import com.krxdevelops.hadesmod.capabilities.aegis.IAegis;
 import com.krxdevelops.hadesmod.entities.EntityShieldOfChaos;
 import com.krxdevelops.hadesmod.init.ItemInit;
+import com.krxdevelops.hadesmod.util.IHasCustomDamageSource;
 import com.krxdevelops.hadesmod.util.IHasModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
@@ -16,25 +15,16 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.Sys;
-import javax.annotation.Nullable;
-import java.util.List;
 
-public class ShieldOfChaos extends Item implements IHasModel
+import javax.annotation.Nullable;
+
+public class ShieldOfChaos extends Item implements IHasModel, IHasCustomDamageSource
 {
     private float attackDamage;
     private float attackSpeed;
@@ -119,7 +109,7 @@ public class ShieldOfChaos extends Item implements IHasModel
         {
             if (!worldIn.isRemote)
             {
-                EntityShieldOfChaos entityShield = new EntityShieldOfChaos(worldIn, entityLiving);
+                EntityShieldOfChaos entityShield = new EntityShieldOfChaos(worldIn, entityLiving, this);
                 entityShield.shoot(entityLiving, entityLiving.rotationPitch, entityLiving.rotationYaw, 0.0F, 1.0F, 0.0F);
                 worldIn.spawnEntity(entityShield);
             }
@@ -148,4 +138,7 @@ public class ShieldOfChaos extends Item implements IHasModel
 
     @Override
     public void registerModels() { HadesMod.proxy.registerItemRenderer(this, 0, "inventory"); }
+
+    @Override
+    public DamageSource causeDamage(Entity entity) { return new EntityDamageSource("playerAegisThrow", entity); }
 }

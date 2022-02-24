@@ -1,7 +1,7 @@
 item.arm_stygius.name=Stygian Blade
 item.arm_varatha.name=Eternal Spear
 item.arm_aegis.name=Shield Of Chaos
-item.arm_coronacht.name=Heart Seeking Bow
+item.arm_coronacht.name=Heart-Seeking Bow
 item.arm_malphon.name=Twin Fists
 item.arm_exagryph.name=Adamant Rail
 
@@ -16,3 +16,10 @@ item.ingot_stygian.name=Stygian Ingot
 tile.block_tartarus.name=Tartarus Block
 tile.oreblock_stygian.name=Stygian Ore
 tile.block_stygian.name=Stygian Block
+
+death.attack.playerStygiusSmash=%1$s was smashed with Stygian Blade wielded by %2$s
+death.attack.playerVarathaSkewer=%1$s was skewered with Eternal Spear wielded by %2$s
+death.attack.playerAegisThrow=%1$s was hit with Shield Of Chaos wielded by %2$s
+death.attack.playerCoronacht=%1$s was shot with Heart-Seeking Bow wielded by %2$s
+death.attack.playerMalphonUppercut=%1$s was uppercut with Twin Fists wielded by %2$s
+death.attack.playerExagryph=%1$s was shot with Adamant Rail wielded by %2$s

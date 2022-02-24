@@ -9,6 +9,7 @@ import com.krxdevelops.hadesmod.entities.EntityCoronachtArrow;
 import com.krxdevelops.hadesmod.entities.EntityExagryphBullet;
 import com.krxdevelops.hadesmod.entities.EntityExagryphRocket;
 import com.krxdevelops.hadesmod.init.ItemInit;
+import com.krxdevelops.hadesmod.util.IHasCustomDamageSource;
 import com.krxdevelops.hadesmod.util.IHasModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,13 +18,11 @@ import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import org.lwjgl.Sys;
 
-public class AdamantRail extends Item implements IHasModel
+public class AdamantRail extends Item implements IHasModel, IHasCustomDamageSource
 {
     private float baseDamage;
     private float rocketDamage;
@@ -52,7 +51,7 @@ public class AdamantRail extends Item implements IHasModel
             {
                 if (!worldIn.isRemote)
                 {
-                    EntityExagryphBullet bullet = new EntityExagryphBullet(worldIn, playerIn);
+                    EntityExagryphBullet bullet = new EntityExagryphBullet(worldIn, playerIn, this);
                     bullet.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 5.0F, 0.5F);
                     worldIn.spawnEntity(bullet);
                 }
@@ -132,4 +131,7 @@ public class AdamantRail extends Item implements IHasModel
     public void registerModels() {
         HadesMod.proxy.registerItemRenderer(this, 0, "inventory");
     }
+
+    @Override
+    public DamageSource causeDamage(Entity entity) { return new EntityDamageSource("playerExagryph", entity); }
 }

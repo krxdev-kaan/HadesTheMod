@@ -1,38 +1,27 @@
 package com.krxdevelops.hadesmod.items;
 
 import com.krxdevelops.hadesmod.HadesMod;
-import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegis;
-import com.krxdevelops.hadesmod.capabilities.aegis.IAegis;
 import com.krxdevelops.hadesmod.capabilities.coronacht.CapabilityCoronacht;
 import com.krxdevelops.hadesmod.capabilities.coronacht.ICoronacht;
-import com.krxdevelops.hadesmod.capabilities.varatha.CapabilityVaratha;
-import com.krxdevelops.hadesmod.capabilities.varatha.IVaratha;
-import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVarathaRecover;
 import com.krxdevelops.hadesmod.entities.EntityCoronachtArrow;
-import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
 import com.krxdevelops.hadesmod.init.ItemInit;
+import com.krxdevelops.hadesmod.util.IHasCustomDamageSource;
 import com.krxdevelops.hadesmod.util.IHasModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Enchantments;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.*;
-import net.minecraft.stats.StatList;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.Sys;
 
 import javax.annotation.Nullable;
 
-public class HeartSeekingBow extends Item implements IHasModel
+public class HeartSeekingBow extends Item implements IHasModel, IHasCustomDamageSource
 {
     private float initialDamage;
     private float maxDamage;
@@ -126,7 +115,7 @@ public class HeartSeekingBow extends Item implements IHasModel
                 {
                     for (int i = 0; i < spreadArrowCount; i++)
                     {
-                        EntityCoronachtArrow coronachtArrow = new EntityCoronachtArrow(worldIn, playerIn, specialDamage, false);
+                        EntityCoronachtArrow coronachtArrow = new EntityCoronachtArrow(worldIn, playerIn, this, specialDamage, false);
                         coronachtArrow.shoot(playerIn, playerIn.rotationPitch, (playerIn.rotationYaw - (i - ((spreadArrowCount - 1) / 2)) * 5), 0.0F, 2.7F, 1.0F);
 
                         worldIn.spawnEntity(coronachtArrow);
@@ -152,7 +141,7 @@ public class HeartSeekingBow extends Item implements IHasModel
         {
             if (!worldIn.isRemote)
             {
-                EntityCoronachtArrow coronachtArrow = new EntityCoronachtArrow(worldIn, entityLiving, initialDamage + (maxDamage - initialDamage) * f, true);
+                EntityCoronachtArrow coronachtArrow = new EntityCoronachtArrow(worldIn, entityLiving, this, initialDamage + (maxDamage - initialDamage) * f, true);
                 coronachtArrow.rotationPitch = playerIn.rotationPitch;
                 coronachtArrow.rotationYaw = playerIn.rotationYaw;
                 coronachtArrow.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, f * 3.0F, 1.0F);
@@ -188,4 +177,7 @@ public class HeartSeekingBow extends Item implements IHasModel
     {
         HadesMod.proxy.registerItemRenderer(this, 0, "inventory");
     }
+
+    @Override
+    public DamageSource causeDamage(Entity entity) { return new EntityDamageSource("playerCoronacht", entity); }
 }

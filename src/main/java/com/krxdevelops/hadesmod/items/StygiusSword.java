@@ -4,13 +4,9 @@ import com.google.common.collect.Multimap;
 import com.krxdevelops.hadesmod.HadesMod;
 import com.krxdevelops.hadesmod.capabilities.stygius.CapabilityStygius;
 import com.krxdevelops.hadesmod.capabilities.stygius.IStygius;
-import com.krxdevelops.hadesmod.capabilities.varatha.CapabilityVaratha;
-import com.krxdevelops.hadesmod.capabilities.varatha.IVaratha;
-import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVarathaRecover;
-import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
 import com.krxdevelops.hadesmod.init.ItemInit;
+import com.krxdevelops.hadesmod.util.IHasCustomDamageSource;
 import com.krxdevelops.hadesmod.util.IHasModel;
-import com.sun.org.apache.bcel.internal.generic.ISTORE;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -22,7 +18,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.*;
@@ -34,7 +29,7 @@ import net.minecraft.world.WorldServer;
 
 import java.util.List;
 
-public class StygiusSword extends Item implements IHasModel
+public class StygiusSword extends Item implements IHasModel, IHasCustomDamageSource
 {
     public float attackDamage;
     public float attackSpeed;
@@ -139,7 +134,7 @@ public class StygiusSword extends Item implements IHasModel
 
                     for (Entity entity : entities)
                     {
-                        entity.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), smashDamage);
+                        entity.attackEntityFrom(this.causeDamage(playerIn), smashDamage);
                         float yaw = (float) (MathHelper.atan2(playerIn.posX - entity.posX, entity.posZ - playerIn.posZ) * (180D / Math.PI));
                         yaw = MathHelper.wrapDegrees(yaw);
                         double xKnockback = -MathHelper.sin(yaw * 0.017453292F);
@@ -181,4 +176,7 @@ public class StygiusSword extends Item implements IHasModel
 
     @Override
     public void registerModels() { HadesMod.proxy.registerItemRenderer(this, 0, "inventory"); }
+
+    @Override
+    public DamageSource causeDamage(Entity entity) { return new EntityDamageSource("playerStygiusSmash", entity); }
 }
