@@ -1,9 +1,11 @@
 package com.krxdevelops.hadesmod.proxy;
 
+import com.krxdevelops.hadesmod.client.GuiOverlay;
 import com.krxdevelops.hadesmod.entities.EntityCoronachtArrow;
 import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
 import com.krxdevelops.hadesmod.entities.EntityExagryphRocket;
 import com.krxdevelops.hadesmod.entities.EntityShieldOfChaos;
+import com.krxdevelops.hadesmod.handlers.GameEventsHandler;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.render.renderer.RenderCoronachtArrow;
 import com.krxdevelops.hadesmod.render.renderer.RenderEternalSpear;
@@ -13,6 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
@@ -22,6 +25,7 @@ public class ClientProxy extends CommonProxy
     public void preInit(FMLPreInitializationEvent event)
     {
         System.out.println("Registering Renderers");
+        MinecraftForge.EVENT_BUS.register(new GameEventsHandler());
         RenderingRegistry.registerEntityRenderingHandler(EntityShieldOfChaos.class, m -> new RenderShieldOfChaos<>(m, ItemInit.shieldOfChaos, Minecraft.getMinecraft().getRenderItem()));
         RenderingRegistry.registerEntityRenderingHandler(EntityEternalSpear.class, m -> new RenderEternalSpear<>(m, ItemInit.eternalSpear, Minecraft.getMinecraft().getRenderItem()));
         RenderingRegistry.registerEntityRenderingHandler(EntityCoronachtArrow.class, m -> new RenderCoronachtArrow<>(m));

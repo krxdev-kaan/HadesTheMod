@@ -68,7 +68,7 @@ public class EternalSpear extends Item implements IHasModel, IHasCustomDamageSou
 
     public EnumAction getItemUseAction(ItemStack stack)
     {
-        return EnumAction.BOW;
+        return EnumAction.NONE;
     }
 
     public int getMaxItemUseDuration(ItemStack stack)
@@ -145,7 +145,7 @@ public class EternalSpear extends Item implements IHasModel, IHasCustomDamageSou
     {
         IVaratha capability = stack.getCapability(CapabilityVaratha.ETERNAL_SPEAR_CAPABILITY, null);
         double ticksPassed = Minecraft.getMinecraft().world.getTotalWorldTime() - capability.getTicksWhenStartedCharging();
-        return ticksPassed > 30 ? 0.0D : 1 - ticksPassed / 30;
+        return ticksPassed > 15 ? 0.0D : 1 - ticksPassed / 15;
     }
 
     public int getRGBDurabilityForDisplay(ItemStack stack)
