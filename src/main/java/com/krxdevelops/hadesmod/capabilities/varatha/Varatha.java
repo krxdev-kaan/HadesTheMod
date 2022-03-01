@@ -29,7 +29,7 @@ public class Varatha implements IVaratha
     public boolean isAbleToThrow(long worldTimeIn)
     {
         double ticksPassed = worldTimeIn - getTicksWhenStartedCharging();
-        return ticksPassed >= 30;
+        return ticksPassed >= 15;
     }
 
     @Override
