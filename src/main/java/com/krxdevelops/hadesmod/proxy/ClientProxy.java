@@ -26,6 +26,7 @@ public class ClientProxy extends CommonProxy
     {
         System.out.println("Registering Renderers");
         MinecraftForge.EVENT_BUS.register(new GameEventsHandler());
+        MinecraftForge.EVENT_BUS.register(new GuiOverlay());
         RenderingRegistry.registerEntityRenderingHandler(EntityShieldOfChaos.class, m -> new RenderShieldOfChaos<>(m, ItemInit.shieldOfChaos, Minecraft.getMinecraft().getRenderItem()));
         RenderingRegistry.registerEntityRenderingHandler(EntityEternalSpear.class, m -> new RenderEternalSpear<>(m, ItemInit.eternalSpear, Minecraft.getMinecraft().getRenderItem()));
         RenderingRegistry.registerEntityRenderingHandler(EntityCoronachtArrow.class, m -> new RenderCoronachtArrow<>(m));
