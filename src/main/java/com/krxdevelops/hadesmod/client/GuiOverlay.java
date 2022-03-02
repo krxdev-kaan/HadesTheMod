@@ -60,7 +60,7 @@ public class GuiOverlay extends Gui {
 
                     GlStateManager.pushMatrix();
                     GlStateManager.enableBlend();
-                    GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+                    GlStateManager.color(0.0f, 0.9f, 1.0f, 1.0f);
                     GlStateManager.scale(0.5f, 0.5f, 1.0f);
                     GlStateManager.translate((sc.getScaledWidth() / 2), (sc.getScaledHeight() / 2), 0.0f);
                     this.drawTexturedModalRect(x, y, 0, 16, 3 + ticksToWidth0196, 16);
