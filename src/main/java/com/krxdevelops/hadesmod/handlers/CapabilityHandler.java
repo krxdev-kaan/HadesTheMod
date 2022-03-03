@@ -43,7 +43,7 @@ public class CapabilityHandler
         {
             e.addCapability(CapabilityExagryphProvider.KEY, new CapabilityExagryphProvider());
         }
-        else if (e.getObject().getItem() instanceof StygiusSword)
+        else if (e.getObject().getItem() instanceof StygianBlade)
         {
             e.addCapability(CapabilityStygiusProvider.KEY, new CapabilityStygiusProvider());
         }

@@ -29,7 +29,7 @@ import net.minecraft.world.WorldServer;
 
 import java.util.List;
 
-public class StygiusSword extends Item implements IHasModel, IHasCustomDamageSource
+public class StygianBlade extends Item implements IHasModel, IHasCustomDamageSource
 {
     public float attackDamage;
     public float attackSpeed;
@@ -37,7 +37,7 @@ public class StygiusSword extends Item implements IHasModel, IHasCustomDamageSou
     public int smashRadius;
     public double smashKnockbackMutliplier;
 
-    public StygiusSword(String name, float attackDamage, float attackSpeed, float smashDamage, int smashRadius, double smashKnockbackMutliplier)
+    public StygianBlade(String name, float attackDamage, float attackSpeed, float smashDamage, int smashRadius, double smashKnockbackMutliplier)
     {
         setUnlocalizedName(name);
         setRegistryName(name);
@@ -159,6 +159,11 @@ public class StygiusSword extends Item implements IHasModel, IHasCustomDamageSou
         IStygius capability = stack.getCapability(CapabilityStygius.STYGIAN_BLADE_CAPABILITY, null);
         double ticksPassed = Minecraft.getMinecraft().world.getTotalWorldTime() - capability.getTicksWhenStartedCharging();
         return ticksPassed > 15 ? 0.0D : 1 - ticksPassed / 15;
+    }
+
+    public int getRGBDurabilityForDisplay(ItemStack stack)
+    {
+        return 0x00FF6600;
     }
 
     public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot)

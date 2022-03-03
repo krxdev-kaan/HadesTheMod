@@ -13,7 +13,7 @@ public class ItemInit
 
     public static final Item.ToolMaterial TOOL_STYGIAN = EnumHelper.addToolMaterial("tool_stygian", 0, -1, 1.0F, 11F, 14);
 
-    public static final StygiusSword stygiusSword = new StygiusSword("arm_stygius", 15F, -2.5F, 15F, 4, 2D);
+    public static final StygianBlade stygianBlade = new StygianBlade("arm_stygius", 15F, -2.5F, 15F, 4, 2D);
     public static final EternalSpear eternalSpear = new EternalSpear("arm_varatha", 18F, -2.0F);
     public static final ShieldOfChaos shieldOfChaos = new ShieldOfChaos("arm_aegis", 18F, -2.9F);
     public static final HeartSeekingBow heartSeekingBow = new HeartSeekingBow("arm_coronacht", 15F, 45F, 5F, 7);
