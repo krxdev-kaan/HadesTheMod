@@ -85,7 +85,7 @@ public class GameEventsHandler
             IVaratha capability = player.getHeldItem(EnumHand.MAIN_HAND).getCapability(CapabilityVaratha.ETERNAL_SPEAR_CAPABILITY, null);
             if (capability.getChargingState())
             {
-                float ticksPassedPercentage01 = (float)(player.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) / 15.0f;
+                float ticksPassedPercentage01 = ((float)(player.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) + event.getPartialTicks()) / 15.0f;
                 if (ticksPassedPercentage01 > 1.0D) ticksPassedPercentage01 = 1.0f;
                 event.getModelPlayer().bipedRightArm.rotateAngleX = (float) Math.toRadians(-200f + ((1.0f - ticksPassedPercentage01) * 200.0f));
                 event.getModelPlayer().bipedLeftArm.rotateAngleX = (float) Math.toRadians(-45f + ((1.0f - ticksPassedPercentage01) * 45.0f));
