@@ -2,6 +2,8 @@ package com.krxdevelops.hadesmod.client;
 
 import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegis;
 import com.krxdevelops.hadesmod.capabilities.aegis.IAegis;
+import com.krxdevelops.hadesmod.capabilities.exagryph.CapabilityExagryph;
+import com.krxdevelops.hadesmod.capabilities.exagryph.IExagryph;
 import com.krxdevelops.hadesmod.capabilities.malphon.CapabilityMalphon;
 import com.krxdevelops.hadesmod.capabilities.malphon.IMalphon;
 import com.krxdevelops.hadesmod.capabilities.stygius.CapabilityStygius;
@@ -21,7 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GuiOverlay extends Gui {
-    public static ResourceLocation chargeBarTexture = new ResourceLocation("hadesmod:textures/gui/infernal_arm_indicators.png");
+    public static ResourceLocation infernalArmIndicators = new ResourceLocation("hadesmod:textures/gui/infernal_arm_indicators.png");
 
     public GuiOverlay()
     {
@@ -47,7 +49,8 @@ public class GuiOverlay extends Gui {
                             1.0f,
                             0.4f,
                             0.0f,
-                            (double)(mc.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) / 15.0D
+                            (double)(mc.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) + event.getPartialTicks(),
+                            15.0D
                     );
                 }
             }
@@ -62,7 +65,8 @@ public class GuiOverlay extends Gui {
                             0.0f,
                             0.9f,
                             1.0f,
-                            (double)(mc.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) / 15.0D
+                            (double)(mc.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) + event.getPartialTicks(),
+                            15.0D
                     );
                 }
             }
@@ -77,7 +81,8 @@ public class GuiOverlay extends Gui {
                             1.0f,
                             0.0f,
                             0.0f,
-                            (double)(mc.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) / 60.0D
+                            (double)(mc.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) + event.getPartialTicks(),
+                            60.0D
                     );
                 }
             }
@@ -92,29 +97,43 @@ public class GuiOverlay extends Gui {
                             0.67f,
                             0.0f,
                             0.0f,
-                            (double)(mc.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) / 20.0D
+                            (double)(mc.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) + event.getPartialTicks(),
+                            20.0D
                     );
                 }
+            }
+            else if (mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem().equals(ItemInit.adamantRail))
+            {
+                IExagryph capability = mc.player.getHeldItem(EnumHand.MAIN_HAND).getCapability(CapabilityExagryph.ADAMANT_RAIL_CAPABILITY, null);
+                this.renderAmmoBar(
+                    mc,
+                    sc,
+                    capability.getAmmo(),
+                    capability.getMaxAmmo(),
+                    capability.getReloadingState(),
+                    (double)(mc.world.getTotalWorldTime() - capability.getLastReloadTicks()) + event.getPartialTicks()
+                );
             }
         }
     }
 
-    public void renderChargeBar(Minecraft mc, ScaledResolution sc, float r, float g, float b, double ticksPercentage)
+    public void renderChargeBar(Minecraft mc, ScaledResolution sc, float r, float g, float b, double ticksPassed, double tickMultiplier)
     {
         int x = (sc.getScaledWidth() / 2) - (202 / 2);
         int y = (sc.getScaledHeight() / 2) + 64;
 
-        mc.getTextureManager().bindTexture(GuiOverlay.chargeBarTexture);
+        mc.getTextureManager().bindTexture(GuiOverlay.infernalArmIndicators);
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-        GlStateManager.scale(0.25f, 0.25f, 1.0f);
-        GlStateManager.translate((sc.getScaledWidth() / 4), (sc.getScaledHeight() / 4), 0.0f);
+        GlStateManager.scale(0.5f, 0.5f, 1.0f);
+        GlStateManager.translate((sc.getScaledWidth() / 2), (sc.getScaledHeight() / 2), 0.0f);
         this.drawTexturedModalRect(x, y, 0, 0, 202, 16);
         GlStateManager.disableBlend();
         GlStateManager.popMatrix();
 
-        int ticksToWidth0196 = (int) ((ticksPercentage > 1.0D ? 1.0D : ticksPercentage) * 196.0D);
+        double ticksPercentage = ticksPassed / tickMultiplier;
+        int ticksToWidth0196 = (int)((ticksPercentage > 1.0D ? 1.0D : ticksPercentage) * 196.0D);
 
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
@@ -124,5 +143,43 @@ public class GuiOverlay extends Gui {
         this.drawTexturedModalRect(x, y, 0, 16, 3 + ticksToWidth0196, 16);
         GlStateManager.disableBlend();
         GlStateManager.popMatrix();
+    }
+
+    public void renderAmmoBar(Minecraft mc, ScaledResolution sc, int ammoCount, int maxAmmo, boolean isReloading, double ticksPassed)
+    {
+        int x = sc.getScaledWidth() - 21;
+        int y = (sc.getScaledHeight() / 2) - (202 / 2);
+
+        mc.getTextureManager().bindTexture(GuiOverlay.infernalArmIndicators);
+        GlStateManager.pushMatrix();
+        GlStateManager.enableBlend();
+        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        this.drawTexturedModalRect(x, y, 32, 32, 16, 202);
+        GlStateManager.disableBlend();
+        GlStateManager.popMatrix();
+
+        if (ammoCount > 0)
+        {
+            int heightForCurrentAmmo = ammoCount >= maxAmmo ? 202 : 21 + (16 * (ammoCount - 1));
+
+            GlStateManager.pushMatrix();
+            GlStateManager.enableBlend();
+            GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+            this.drawTexturedModalRect(x, y + (202 - heightForCurrentAmmo), 16, 32 + (202 - heightForCurrentAmmo), 16, heightForCurrentAmmo);
+            GlStateManager.disableBlend();
+            GlStateManager.popMatrix();
+        }
+        else if (isReloading)
+        {
+            double ticksPercentage = ticksPassed / 20.0D;
+            int ticksToHeight0202 = 3 + (int)((ticksPercentage > 1.0D ? 1.0D : ticksPercentage) * 196.0D);
+
+            GlStateManager.pushMatrix();
+            GlStateManager.enableBlend();
+            GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+            this.drawTexturedModalRect(x, y + (202 - ticksToHeight0202), 16, 32 + (202 - ticksToHeight0202), 16, ticksToHeight0202);
+            GlStateManager.disableBlend();
+            GlStateManager.popMatrix();
+        }
     }
 }

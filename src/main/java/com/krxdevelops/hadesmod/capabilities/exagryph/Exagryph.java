@@ -34,6 +34,11 @@ public class Exagryph implements IExagryph
     }
 
     @Override
+    public int getMaxAmmo() {
+        return 12;
+    }
+
+    @Override
     public void setLastReloadTicks(long lastReloadTicks)
     {
         this.lastReloadTicks = lastReloadTicks;

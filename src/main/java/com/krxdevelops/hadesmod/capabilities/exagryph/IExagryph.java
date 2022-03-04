@@ -6,6 +6,8 @@ public interface IExagryph
     public void setAmmo(int ammo);
     public int getAmmo();
 
+    public int getMaxAmmo();
+
     public void setLastReloadTicks(long lastReloadTicks);
     public long getLastReloadTicks();
 
