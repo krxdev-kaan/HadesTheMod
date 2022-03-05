@@ -1,5 +1,6 @@
 package com.krxdevelops.hadesmod.client;
 
+import com.krxdevelops.hadesmod.Globals;
 import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegis;
 import com.krxdevelops.hadesmod.capabilities.aegis.IAegis;
 import com.krxdevelops.hadesmod.capabilities.exagryph.CapabilityExagryph;
@@ -113,6 +114,15 @@ public class GuiOverlay extends Gui {
                     capability.getReloadingState(),
                     (double)(mc.world.getTotalWorldTime() - capability.getLastReloadTicks()) + event.getPartialTicks()
                 );
+            }
+            else if (mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem().equals(ItemInit.debugItem))
+            {
+                String mode = Globals.isModeAdd ? "Add " : "Substract ";
+                String on = Globals.selectorXYZ == 1 ? "X" : Globals.selectorXYZ == 2 ? "Y" : "Z";
+                mc.fontRenderer.drawString(mode + on, 0, 0, 0xFFFFFFFF);
+                mc.fontRenderer.drawString("X: " + Globals.twinFistSlimX, 0, 24, 0xFFFFFFFF);
+                mc.fontRenderer.drawString("Y: " + Globals.twinFistSlimY, 0, 48, 0xFFFFFFFF);
+                mc.fontRenderer.drawString("Z: " + Globals.twinFistSlimZ, 0, 72, 0xFFFFFFFF);
             }
         }
     }

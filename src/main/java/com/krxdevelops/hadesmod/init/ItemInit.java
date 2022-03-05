@@ -20,7 +20,9 @@ public class ItemInit
     public static final TwinFists twinFists = new TwinFists("arm_malphon", 10F, -1.8F, 4, 10F);
     public static final AdamantRail adamantRail = new AdamantRail("arm_exagryph", 5F, 10F);
 
-    public static final Item eternalSpearRecoverItem = new EternalSpearRecoverItem("eternal_spear_recover");
+    public static final EternalSpearRecoverItem eternalSpearRecoverItem = new EternalSpearRecoverItem("eternal_spear_recover");
+
+    public static final DebugItem debugItem = new DebugItem("debug_item");
 
     public static final Item stygianMatter = new ItemBase("ore_stygian");
     public static final Item stygianIngot = new ItemBase("ingot_stygian");
