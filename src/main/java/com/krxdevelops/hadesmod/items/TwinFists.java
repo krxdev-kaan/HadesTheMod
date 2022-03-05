@@ -50,7 +50,7 @@ public class TwinFists extends Item implements IHasModel, IHasCustomDamageSource
         this.uppercutRadius = uppercutRadius;
         this.uppercutDamage = uppercutDamage;
 
-        addPropertyOverride(new ResourceLocation("charging"), new IItemPropertyGetter()
+        this.addPropertyOverride(new ResourceLocation("charging"), new IItemPropertyGetter()
         {
             @SideOnly(Side.CLIENT)
             public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
@@ -75,7 +75,7 @@ public class TwinFists extends Item implements IHasModel, IHasCustomDamageSource
 
     public EnumAction getItemUseAction(ItemStack stack)
     {
-        return EnumAction.BOW;
+        return EnumAction.NONE;
     }
 
     public int getMaxItemUseDuration(ItemStack stack)

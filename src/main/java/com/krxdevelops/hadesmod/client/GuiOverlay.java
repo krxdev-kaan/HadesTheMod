@@ -119,10 +119,10 @@ public class GuiOverlay extends Gui {
             {
                 String mode = Globals.isModeAdd ? "Add " : "Substract ";
                 String on = Globals.selectorXYZ == 1 ? "X" : Globals.selectorXYZ == 2 ? "Y" : "Z";
-                mc.fontRenderer.drawString(mode + on, 0, 0, 0xFFFFFFFF);
-                mc.fontRenderer.drawString("X: " + Globals.twinFistSlimX, 0, 24, 0xFFFFFFFF);
-                mc.fontRenderer.drawString("Y: " + Globals.twinFistSlimY, 0, 48, 0xFFFFFFFF);
-                mc.fontRenderer.drawString("Z: " + Globals.twinFistSlimZ, 0, 72, 0xFFFFFFFF);
+                mc.fontRenderer.drawString(mode + on, 0, 0, 0xFFFFFFFF, true);
+                mc.fontRenderer.drawString("X: " + Globals.twinFistSlimX, 0, 24, 0xFFFFFFFF, true);
+                mc.fontRenderer.drawString("Y: " + Globals.twinFistSlimY, 0, 48, 0xFFFFFFFF, true);
+                mc.fontRenderer.drawString("Z: " + Globals.twinFistSlimZ, 0, 72, 0xFFFFFFFF, true);
             }
         }
     }

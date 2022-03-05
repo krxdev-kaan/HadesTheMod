@@ -1,5 +1,8 @@
 package com.krxdevelops.hadesmod.handlers;
 
+import com.krxdevelops.hadesmod.Globals;
+import com.krxdevelops.hadesmod.capabilities.malphon.CapabilityMalphon;
+import com.krxdevelops.hadesmod.capabilities.malphon.IMalphon;
 import com.krxdevelops.hadesmod.capabilities.varatha.CapabilityVaratha;
 import com.krxdevelops.hadesmod.capabilities.varatha.IVaratha;
 import com.krxdevelops.hadesmod.client.GuiOverlay;
@@ -54,24 +57,19 @@ public class GameEventsHandler
         }
     } */
 
+    @Deprecated
     @SubscribeEvent
     public static void onFOVUpdate(FOVUpdateEvent event)
     {
         ItemStack activeStack = event.getEntity().getActiveItemStack();
         if (activeStack.getItem() == ItemInit.heartSeekingBow)
         {
-            //event.setNewfov(event.getFov() * 1.0F);
+            //event.setNewfov(event.getFov() * 1.5F);
         }
         else if (activeStack.getItem() == ItemInit.adamantRail)
         {
-            //event.setNewfov(event.getFov() * 1.0F);
+            //event.setNewfov(event.getFov() * 1.5F);
         }
-    }
-
-    @SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    public void onRenderGameOverlayEvent(RenderGameOverlayEvent.Post event)
-    {
     }
 
     @SideOnly(Side.CLIENT)
@@ -87,8 +85,20 @@ public class GameEventsHandler
             {
                 float ticksPassedPercentage01 = ((float)(player.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) + event.getPartialTicks()) / 15.0f;
                 if (ticksPassedPercentage01 > 1.0D) ticksPassedPercentage01 = 1.0f;
-                event.getModelPlayer().bipedRightArm.rotateAngleX = (float) Math.toRadians(-200f + ((1.0f - ticksPassedPercentage01) * 200.0f));
-                event.getModelPlayer().bipedLeftArm.rotateAngleX = (float) Math.toRadians(-45f + ((1.0f - ticksPassedPercentage01) * 45.0f));
+                event.getModelPlayer().bipedRightArm.rotateAngleX = (float)Math.toRadians(-200f + ((1.0f - ticksPassedPercentage01) * 200.0f));
+                event.getModelPlayer().bipedLeftArm.rotateAngleX = (float)Math.toRadians(-45f + ((1.0f - ticksPassedPercentage01) * 45.0f));
+            }
+        }
+        else if(player.getHeldItem(EnumHand.MAIN_HAND).getItem().equals(ItemInit.twinFists))
+        {
+            IMalphon capability = player.getHeldItem(EnumHand.MAIN_HAND).getCapability(CapabilityMalphon.TWIN_FISTS_CAPABILITY, null);
+            if (capability.getChargingState())
+            {
+                float ticksPassedPercentage01 = ((float)(player.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) + event.getPartialTicks()) / 20.0f;
+                if (ticksPassedPercentage01 > 1.0D) ticksPassedPercentage01 = 1.0f;
+                event.getModelPlayer().bipedRightArm.rotateAngleX = (float)Math.toRadians(-ticksPassedPercentage01 * 60.0f);
+                event.getModelPlayer().bipedLeftArm.rotateAngleX = (float)Math.toRadians(-45f + ((1.0f - ticksPassedPercentage01) * 45.0f));
+                event.getModelPlayer().bipedRightArm.rotateAngleY = (float)Math.toRadians(ticksPassedPercentage01 * 180.0f);
             }
         }
     }
@@ -107,6 +117,20 @@ public class GameEventsHandler
                 GlStateManager.rotate(180.0f, 1.0f, 0.0f, 0.0f);
             }
         }
+        else if(event.getItem().getItem().equals(ItemInit.twinFists))
+        {
+            IMalphon capability = event.getItem().getCapability(CapabilityMalphon.TWIN_FISTS_CAPABILITY, null);
+            if (capability.getChargingState())
+            {
+                AbstractClientPlayer player = (AbstractClientPlayer)event.getEntity();
+                boolean isSlim = player.getSkinType() == "slim";
+
+                GlStateManager.pushMatrix();
+                GlStateManager.translate(isSlim ? -0.06f : 0.0f, -0.25f, isSlim ? -0.07 : 0.00f);
+                if (isSlim) GlStateManager.scale(1.1f, 1.1f, 1.1f);
+                GlStateManager.rotate(180.0f, 0.0f, 0.0f, 1.0f);
+            }
+        }
     }
 
     @SideOnly(Side.CLIENT)
@@ -121,20 +145,31 @@ public class GameEventsHandler
                 GlStateManager.popMatrix();
             }
         }
+        else if(event.getItem().getItem().equals(ItemInit.twinFists))
+        {
+            IMalphon capability = event.getItem().getCapability(CapabilityMalphon.TWIN_FISTS_CAPABILITY, null);
+            if (capability.getChargingState())
+            {
+                GlStateManager.popMatrix();
+            }
+        }
     }
 
+    @Deprecated
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onRenderHand(RenderHandEvent event)
     {
     }
 
+    @Deprecated
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onPlayerRender(RenderPlayerEvent.Pre event)
     {
     }
 
+    @Deprecated
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onPlayerRender(RenderPlayerEvent.Post event)

@@ -1,11 +1,13 @@
 package com.krxdevelops.hadesmod.items;
 
 import com.krxdevelops.hadesmod.Globals;
+import com.krxdevelops.hadesmod.HadesMod;
 import com.krxdevelops.hadesmod.capabilities.exagryph.CapabilityExagryph;
 import com.krxdevelops.hadesmod.capabilities.exagryph.IExagryph;
 import com.krxdevelops.hadesmod.entities.EntityExagryphBullet;
 import com.krxdevelops.hadesmod.entities.EntityExagryphRocket;
 import com.krxdevelops.hadesmod.init.ItemInit;
+import com.krxdevelops.hadesmod.util.IHasModel;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -15,7 +17,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
-public class DebugItem extends Item {
+public class DebugItem extends Item implements IHasModel {
     public DebugItem(String name)
     {
         setUnlocalizedName(name);
@@ -77,5 +79,11 @@ public class DebugItem extends Item {
         }
 
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+    }
+
+    @Override
+    public void registerModels()
+    {
+        HadesMod.proxy.registerItemRenderer(this, 0, "inventory");
     }
 }
