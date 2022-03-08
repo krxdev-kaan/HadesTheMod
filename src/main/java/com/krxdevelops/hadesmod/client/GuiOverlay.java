@@ -12,10 +12,12 @@ import com.krxdevelops.hadesmod.capabilities.stygius.IStygius;
 import com.krxdevelops.hadesmod.capabilities.varatha.CapabilityVaratha;
 import com.krxdevelops.hadesmod.capabilities.varatha.IVaratha;
 import com.krxdevelops.hadesmod.init.ItemInit;
+import com.krxdevelops.hadesmod.util.IHasOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.item.Item;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -39,99 +41,16 @@ public class GuiOverlay extends Gui {
         ScaledResolution sc = event.getResolution();
         if(event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE)
         {
-            if (mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem().equals(ItemInit.stygianBlade))
+            Item heldItem = mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem();
+            if (heldItem instanceof IHasOverlay)
             {
-                IStygius capability = mc.player.getHeldItem(EnumHand.MAIN_HAND).getCapability(CapabilityStygius.STYGIAN_BLADE_CAPABILITY, null);
-                if (capability.getChargingState())
-                {
-                    this.renderChargeBar(
-                            mc,
-                            sc,
-                            1.0f,
-                            0.4f,
-                            0.0f,
-                            (double)(mc.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) + event.getPartialTicks(),
-                            15.0D
-                    );
-                }
-            }
-            else if (mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem().equals(ItemInit.eternalSpear))
-            {
-                IVaratha capability = mc.player.getHeldItem(EnumHand.MAIN_HAND).getCapability(CapabilityVaratha.ETERNAL_SPEAR_CAPABILITY, null);
-                if (capability.getChargingState())
-                {
-                    this.renderChargeBar(
-                            mc,
-                            sc,
-                            0.0f,
-                            0.9f,
-                            1.0f,
-                            (double)(mc.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) + event.getPartialTicks(),
-                            15.0D
-                    );
-                }
-            }
-            else if (mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem().equals(ItemInit.shieldOfChaos))
-            {
-                IAegis capability = mc.player.getHeldItem(EnumHand.MAIN_HAND).getCapability(CapabilityAegis.SHIELD_OF_CHAOS_CAPABILITIES, null);
-                if (capability.getChargingState())
-                {
-                    this.renderChargeBar(
-                            mc,
-                            sc,
-                            1.0f,
-                            0.0f,
-                            0.0f,
-                            (double)(mc.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) + event.getPartialTicks(),
-                            60.0D
-                    );
-                }
-            }
-            else if (mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem().equals(ItemInit.twinFists))
-            {
-                IMalphon capability = mc.player.getHeldItem(EnumHand.MAIN_HAND).getCapability(CapabilityMalphon.TWIN_FISTS_CAPABILITY, null);
-                if (capability.getChargingState())
-                {
-                    this.renderChargeBar(
-                            mc,
-                            sc,
-                            0.67f,
-                            0.0f,
-                            0.0f,
-                            (double)(mc.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) + event.getPartialTicks(),
-                            20.0D
-                    );
-                }
-            }
-            else if (mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem().equals(ItemInit.adamantRail))
-            {
-                IExagryph capability = mc.player.getHeldItem(EnumHand.MAIN_HAND).getCapability(CapabilityExagryph.ADAMANT_RAIL_CAPABILITY, null);
-                this.renderAmmoBar(
-                    mc,
-                    sc,
-                    capability.getAmmo(),
-                    capability.getMaxAmmo(),
-                    capability.getReloadingState(),
-                    (double)(mc.world.getTotalWorldTime() - capability.getLastReloadTicks()) + event.getPartialTicks()
-                );
-            }
-            else if (mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem().equals(ItemInit.debugItem))
-            {
-                String mode = Globals.isModeAdd ? "Add " : "Substract ";
-                String on = Globals.selectorXYZ == 1 ? "X" : Globals.selectorXYZ == 2 ? "Y" : "Z";
-                mc.fontRenderer.drawString(mode + on, 0, 0, 0xFFFFFFFF, true);
-                mc.fontRenderer.drawString("X: " + Globals.twinFistSlimX, 0, 24, 0xFFFFFFFF, true);
-                mc.fontRenderer.drawString("Y: " + Globals.twinFistSlimY, 0, 48, 0xFFFFFFFF, true);
-                mc.fontRenderer.drawString("Z: " + Globals.twinFistSlimZ, 0, 72, 0xFFFFFFFF, true);
+                ((IHasOverlay) heldItem).renderOverlay(event, this);
             }
         }
     }
 
-    public void renderChargeBar(Minecraft mc, ScaledResolution sc, float r, float g, float b, double ticksPassed, double tickMultiplier)
+    public void renderChargeBar(Minecraft mc, ScaledResolution sc, int x, int y, float r, float g, float b, double ticksPassed, double tickMultiplier)
     {
-        int x = (sc.getScaledWidth() / 2) - (202 / 2);
-        int y = (sc.getScaledHeight() / 2) + 64;
-
         mc.getTextureManager().bindTexture(GuiOverlay.infernalArmIndicators);
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
@@ -155,11 +74,8 @@ public class GuiOverlay extends Gui {
         GlStateManager.popMatrix();
     }
 
-    public void renderAmmoBar(Minecraft mc, ScaledResolution sc, int ammoCount, int maxAmmo, boolean isReloading, double ticksPassed)
+    public void renderAmmoBar(Minecraft mc, ScaledResolution sc, int x, int y, int ammoCount, int maxAmmo, boolean isReloading, double ticksPassed)
     {
-        int x = sc.getScaledWidth() - 21;
-        int y = (sc.getScaledHeight() / 2) - (202 / 2);
-
         mc.getTextureManager().bindTexture(GuiOverlay.infernalArmIndicators);
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();

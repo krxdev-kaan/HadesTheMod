@@ -5,13 +5,18 @@ import com.krxdevelops.hadesmod.capabilities.coronacht.CapabilityCoronacht;
 import com.krxdevelops.hadesmod.capabilities.coronacht.ICoronacht;
 import com.krxdevelops.hadesmod.capabilities.exagryph.CapabilityExagryph;
 import com.krxdevelops.hadesmod.capabilities.exagryph.IExagryph;
+import com.krxdevelops.hadesmod.capabilities.malphon.CapabilityMalphon;
+import com.krxdevelops.hadesmod.capabilities.malphon.IMalphon;
+import com.krxdevelops.hadesmod.client.GuiOverlay;
 import com.krxdevelops.hadesmod.entities.EntityCoronachtArrow;
 import com.krxdevelops.hadesmod.entities.EntityExagryphBullet;
 import com.krxdevelops.hadesmod.entities.EntityExagryphRocket;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasCustomDamageSource;
 import com.krxdevelops.hadesmod.util.IHasModel;
+import com.krxdevelops.hadesmod.util.IHasOverlay;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -20,9 +25,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import org.lwjgl.Sys;
 
-public class AdamantRail extends Item implements IHasModel, IHasCustomDamageSource
+public class AdamantRail extends Item implements IHasModel, IHasCustomDamageSource, IHasOverlay
 {
     private float baseDamage;
     private float rocketDamage;
@@ -134,4 +140,22 @@ public class AdamantRail extends Item implements IHasModel, IHasCustomDamageSour
 
     @Override
     public DamageSource causeDamage(Entity entity) { return new EntityDamageSource("playerExagryph", entity); }
+
+    @Override
+    public void renderOverlay(RenderGameOverlayEvent.Post event, GuiOverlay gui)
+    {
+        Minecraft mc = Minecraft.getMinecraft();
+        ScaledResolution sc = event.getResolution();
+        IExagryph capability = mc.player.getHeldItem(EnumHand.MAIN_HAND).getCapability(CapabilityExagryph.ADAMANT_RAIL_CAPABILITY, null);
+        gui.renderAmmoBar(
+                mc,
+                sc,
+                sc.getScaledWidth() - 21,
+                (sc.getScaledHeight() / 2) - 101,
+                capability.getAmmo(),
+                capability.getMaxAmmo(),
+                capability.getReloadingState(),
+                (double)(mc.world.getTotalWorldTime() - capability.getLastReloadTicks()) + event.getPartialTicks()
+        );
+    }
 }

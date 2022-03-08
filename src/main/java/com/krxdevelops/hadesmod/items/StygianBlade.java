@@ -4,10 +4,13 @@ import com.google.common.collect.Multimap;
 import com.krxdevelops.hadesmod.HadesMod;
 import com.krxdevelops.hadesmod.capabilities.stygius.CapabilityStygius;
 import com.krxdevelops.hadesmod.capabilities.stygius.IStygius;
+import com.krxdevelops.hadesmod.client.GuiOverlay;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasCustomDamageSource;
 import com.krxdevelops.hadesmod.util.IHasModel;
+import com.krxdevelops.hadesmod.util.IHasOverlay;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -26,10 +29,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
 import java.util.List;
 
-public class StygianBlade extends Item implements IHasModel, IHasCustomDamageSource
+public class StygianBlade extends Item implements IHasModel, IHasCustomDamageSource, IHasOverlay
 {
     public float attackDamage;
     public float attackSpeed;
@@ -184,4 +188,26 @@ public class StygianBlade extends Item implements IHasModel, IHasCustomDamageSou
 
     @Override
     public DamageSource causeDamage(Entity entity) { return new EntityDamageSource("playerStygiusSmash", entity); }
+
+    @Override
+    public void renderOverlay(RenderGameOverlayEvent.Post event, GuiOverlay gui)
+    {
+        Minecraft mc = Minecraft.getMinecraft();
+        ScaledResolution sc = event.getResolution();
+        IStygius capability = mc.player.getHeldItem(EnumHand.MAIN_HAND).getCapability(CapabilityStygius.STYGIAN_BLADE_CAPABILITY, null);
+        if (capability.getChargingState())
+        {
+            gui.renderChargeBar(
+                    mc,
+                    sc,
+                    (sc.getScaledWidth() / 2) - 101,
+                    sc.getScaledHeight() / 2 + 64,
+                    1.0f,
+                    0.4f,
+                    0.0f,
+                    (double)(mc.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) + event.getPartialTicks(),
+                    15.0D
+            );
+        }
+    }
 }

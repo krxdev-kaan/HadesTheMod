@@ -2,14 +2,19 @@ package com.krxdevelops.hadesmod.items;
 
 import com.google.common.collect.Multimap;
 import com.krxdevelops.hadesmod.HadesMod;
+import com.krxdevelops.hadesmod.capabilities.stygius.CapabilityStygius;
+import com.krxdevelops.hadesmod.capabilities.stygius.IStygius;
 import com.krxdevelops.hadesmod.capabilities.varatha.CapabilityVaratha;
 import com.krxdevelops.hadesmod.capabilities.varatha.IVaratha;
 import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVarathaRecover;
+import com.krxdevelops.hadesmod.client.GuiOverlay;
 import com.krxdevelops.hadesmod.entities.EntityEternalSpear;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasCustomDamageSource;
 import com.krxdevelops.hadesmod.util.IHasModel;
+import com.krxdevelops.hadesmod.util.IHasOverlay;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,12 +28,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
-public class EternalSpear extends Item implements IHasModel, IHasCustomDamageSource
+public class EternalSpear extends Item implements IHasModel, IHasCustomDamageSource, IHasOverlay
 {
     public float attackDamage;
     public float attackSpeed;
@@ -158,4 +164,26 @@ public class EternalSpear extends Item implements IHasModel, IHasCustomDamageSou
 
     @Override
     public DamageSource causeDamage(Entity entity) { return new EntityDamageSource("playerVarathaSkewer", entity); }
+
+    @Override
+    public void renderOverlay(RenderGameOverlayEvent.Post event, GuiOverlay gui)
+    {
+        Minecraft mc = Minecraft.getMinecraft();
+        ScaledResolution sc = event.getResolution();
+        IVaratha capability = mc.player.getHeldItem(EnumHand.MAIN_HAND).getCapability(CapabilityVaratha.ETERNAL_SPEAR_CAPABILITY, null);
+        if (capability.getChargingState())
+        {
+            gui.renderChargeBar(
+                    mc,
+                    sc,
+                    (sc.getScaledWidth() / 2) - 101,
+                    sc.getScaledHeight() / 2 + 64,
+                    0.0f,
+                    0.9f,
+                    1.0f,
+                    (double)(mc.world.getTotalWorldTime() - capability.getTicksWhenStartedCharging()) + event.getPartialTicks(),
+                    15.0D
+            );
+        }
+    }
 }
