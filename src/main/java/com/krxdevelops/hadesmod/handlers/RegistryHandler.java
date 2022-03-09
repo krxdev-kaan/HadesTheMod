@@ -79,7 +79,7 @@ public class RegistryHandler
                 .entity(EntityShieldOfChaos.class)
                 .id(new ResourceLocation("hadesmod", "shield_of_chaos"), id++)
                 .name("shield_of_chaos")
-                .tracker(160, 3, true)
+                .tracker(160, 1, true)
                 .build());
 
         event.getRegistry().register(EntityEntryBuilder.create()

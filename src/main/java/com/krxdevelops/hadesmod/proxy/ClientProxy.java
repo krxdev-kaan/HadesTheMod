@@ -7,6 +7,7 @@ import com.krxdevelops.hadesmod.entities.EntityExagryphRocket;
 import com.krxdevelops.hadesmod.entities.EntityShieldOfChaos;
 import com.krxdevelops.hadesmod.handlers.GameEventsHandler;
 import com.krxdevelops.hadesmod.init.ItemInit;
+import com.krxdevelops.hadesmod.items.DebugItem;
 import com.krxdevelops.hadesmod.render.renderer.RenderCoronachtArrow;
 import com.krxdevelops.hadesmod.render.renderer.RenderEternalSpear;
 import com.krxdevelops.hadesmod.render.renderer.RenderExagryphRocket;
@@ -27,6 +28,7 @@ public class ClientProxy extends CommonProxy
         System.out.println("Registering Renderers");
         MinecraftForge.EVENT_BUS.register(new GameEventsHandler());
         MinecraftForge.EVENT_BUS.register(new GuiOverlay());
+        MinecraftForge.EVENT_BUS.register(ItemInit.debugItem);
         RenderingRegistry.registerEntityRenderingHandler(EntityShieldOfChaos.class, m -> new RenderShieldOfChaos<>(m, ItemInit.shieldOfChaos, Minecraft.getMinecraft().getRenderItem()));
         RenderingRegistry.registerEntityRenderingHandler(EntityEternalSpear.class, m -> new RenderEternalSpear<>(m, ItemInit.eternalSpear, Minecraft.getMinecraft().getRenderItem()));
         RenderingRegistry.registerEntityRenderingHandler(EntityCoronachtArrow.class, m -> new RenderCoronachtArrow<>(m));

@@ -7,6 +7,8 @@ import com.krxdevelops.hadesmod.capabilities.malphon.CapabilityMalphon;
 import com.krxdevelops.hadesmod.capabilities.stygius.CapabilityStygius;
 import com.krxdevelops.hadesmod.capabilities.varatha.CapabilityVaratha;
 import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVarathaRecover;
+import com.krxdevelops.hadesmod.network.DebugItemModChangeMessage;
+import com.krxdevelops.hadesmod.network.HadesModPacketHandler;
 import com.krxdevelops.hadesmod.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -14,6 +16,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.Logger;
 
 
@@ -42,6 +45,10 @@ public class HadesMod
         CapabilityMalphon.register();
         CapabilityExagryph.register();
         CapabilityStygius.register();
+
+        // Register Packets
+        HadesModPacketHandler.INSTANCE.registerMessage(DebugItemModChangeMessage.DebugItemModChangeMessageHandler.class, DebugItemModChangeMessage.class, 0, Side.SERVER);
+        HadesModPacketHandler.INSTANCE.registerMessage(DebugItemModChangeMessage.DebugItemModChangeMessageHandler.class, DebugItemModChangeMessage.class, 1, Side.CLIENT);
     }
 
     @EventHandler
