@@ -128,6 +128,13 @@ public class GameEventsHandler
                 event.getModelPlayer().bipedRightArm.rotateAngleY = (float)Math.toRadians(ticksPassedPercentage01 * 180.0f);
             }
         }
+        else if(player.getHeldItem(EnumHand.MAIN_HAND).getItem().equals(ItemInit.adamantRail))
+        {
+            event.getModelPlayer().bipedRightArm.rotateAngleX = (float)Math.toRadians(-90f);
+            event.getModelPlayer().bipedRightArm.rotateAngleY = (float)Math.toRadians(-20f);
+            event.getModelPlayer().bipedLeftArm.rotateAngleX = (float)Math.toRadians(-90f);
+            event.getModelPlayer().bipedLeftArm.rotateAngleY = (float)Math.toRadians(50f);
+        }
     }
 
     @SideOnly(Side.CLIENT)
@@ -158,6 +165,11 @@ public class GameEventsHandler
                 GlStateManager.rotate(180.0f, 0.0f, 0.0f, 1.0f);
             }
         }
+        else if(event.getItem().getItem().equals(ItemInit.adamantRail))
+        {
+            GlStateManager.pushMatrix();
+            GlStateManager.rotate(-20.0f, 0.0f, 1.0f, 0.0f);
+        }
     }
 
     @SideOnly(Side.CLIENT)
@@ -179,6 +191,10 @@ public class GameEventsHandler
             {
                 GlStateManager.popMatrix();
             }
+        }
+        else if(event.getItem().getItem().equals(ItemInit.adamantRail))
+        {
+            GlStateManager.popMatrix();
         }
     }
 
