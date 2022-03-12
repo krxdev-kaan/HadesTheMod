@@ -87,7 +87,14 @@ public class GameEventsHandler
             if(capability.getNextFallCanceled())
             {
                 capability.setNextFallCanceled(false);
-                event.setCanceled(true);
+                if (entity.fallDistance < 12)
+                {
+                    event.setCanceled(true);
+                }
+                else
+                {
+                    entity.fallDistance -= 12;
+                }
             }
         }
     }
