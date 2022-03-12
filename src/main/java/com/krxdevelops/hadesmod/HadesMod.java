@@ -4,6 +4,7 @@ import com.krxdevelops.hadesmod.capabilities.aegis.CapabilityAegis;
 import com.krxdevelops.hadesmod.capabilities.coronacht.CapabilityCoronacht;
 import com.krxdevelops.hadesmod.capabilities.exagryph.CapabilityExagryph;
 import com.krxdevelops.hadesmod.capabilities.malphon.CapabilityMalphon;
+import com.krxdevelops.hadesmod.capabilities.player.CapabilityHadesPlayer;
 import com.krxdevelops.hadesmod.capabilities.stygius.CapabilityStygius;
 import com.krxdevelops.hadesmod.capabilities.varatha.CapabilityVaratha;
 import com.krxdevelops.hadesmod.capabilities.varatha.recover.CapabilityVarathaRecover;
@@ -45,6 +46,7 @@ public class HadesMod
         CapabilityMalphon.register();
         CapabilityExagryph.register();
         CapabilityStygius.register();
+        CapabilityHadesPlayer.register();
 
         // Register Packets
         HadesModPacketHandler.INSTANCE.registerMessage(DebugItemModChangeMessage.DebugItemModChangeMessageHandler.class, DebugItemModChangeMessage.class, 0, Side.SERVER);

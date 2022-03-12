@@ -4,6 +4,7 @@ import com.google.common.collect.Multimap;
 import com.krxdevelops.hadesmod.HadesMod;
 import com.krxdevelops.hadesmod.capabilities.malphon.CapabilityMalphon;
 import com.krxdevelops.hadesmod.capabilities.malphon.IMalphon;
+import com.krxdevelops.hadesmod.capabilities.player.CapabilityHadesPlayer;
 import com.krxdevelops.hadesmod.capabilities.varatha.CapabilityVaratha;
 import com.krxdevelops.hadesmod.capabilities.varatha.IVaratha;
 import com.krxdevelops.hadesmod.client.GuiOverlay;
@@ -131,6 +132,7 @@ public class TwinFists extends Item implements IHasModel, IHasCustomDamageSource
                         e.addVelocity(0, 1.2D, 0);
                     }
                 }
+                entityLiving.getCapability(CapabilityHadesPlayer.HADES_PLAYER_CAPABILITY, null).setNextFallCanceled(true);
                 entityLiving.addVelocity(0, 0.8D, 0);
                 entityLiving.velocityChanged = true;
 
