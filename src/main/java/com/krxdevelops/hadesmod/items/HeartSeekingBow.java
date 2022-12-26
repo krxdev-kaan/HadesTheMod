@@ -7,6 +7,7 @@ import com.krxdevelops.hadesmod.entities.EntityCoronachtArrow;
 import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasCustomDamageSource;
 import com.krxdevelops.hadesmod.util.IHasModel;
+import com.krxdevelops.hadesmod.util.IInfernalArm;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -21,7 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
-public class HeartSeekingBow extends Item implements IHasModel, IHasCustomDamageSource
+public class HeartSeekingBow extends Item implements IHasModel, IHasCustomDamageSource, IInfernalArm
 {
     private float initialDamage;
     private float maxDamage;

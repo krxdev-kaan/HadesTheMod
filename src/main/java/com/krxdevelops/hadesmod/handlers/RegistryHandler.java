@@ -3,6 +3,8 @@ package com.krxdevelops.hadesmod.handlers;
 import com.krxdevelops.hadesmod.entities.*;
 import com.krxdevelops.hadesmod.init.BlockInit;
 import com.krxdevelops.hadesmod.init.ItemInit;
+import com.krxdevelops.hadesmod.render.renderer.RenderInfernalArmPedestal;
+import com.krxdevelops.hadesmod.tileEntities.TileEntityInfernalArmPedestal;
 import com.krxdevelops.hadesmod.util.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -18,6 +20,7 @@ import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
@@ -43,6 +46,8 @@ public class RegistryHandler
     {
         System.out.println("Registering Blocks");
         event.getRegistry().registerAll(BlockInit.BLOCKS.toArray(new Block[0]));
+        TileEntityHandler.registerTileEntities();
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityInfernalArmPedestal.class, new RenderInfernalArmPedestal());
     }
 
     @SideOnly(Side.CLIENT)

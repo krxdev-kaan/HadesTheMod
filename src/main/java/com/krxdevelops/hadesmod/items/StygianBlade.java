@@ -9,6 +9,7 @@ import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasCustomDamageSource;
 import com.krxdevelops.hadesmod.util.IHasModel;
 import com.krxdevelops.hadesmod.util.IHasOverlay;
+import com.krxdevelops.hadesmod.util.IInfernalArm;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.creativetab.CreativeTabs;
@@ -33,7 +34,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
 import java.util.List;
 
-public class StygianBlade extends Item implements IHasModel, IHasCustomDamageSource, IHasOverlay
+public class StygianBlade extends Item implements IHasModel, IHasCustomDamageSource, IHasOverlay, IInfernalArm
 {
     public float attackDamage;
     public float attackSpeed;

@@ -12,6 +12,7 @@ import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasCustomDamageSource;
 import com.krxdevelops.hadesmod.util.IHasModel;
 import com.krxdevelops.hadesmod.util.IHasOverlay;
+import com.krxdevelops.hadesmod.util.IInfernalArm;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.creativetab.CreativeTabs;
@@ -38,7 +39,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class TwinFists extends Item implements IHasModel, IHasCustomDamageSource, IHasOverlay
+public class TwinFists extends Item implements IHasModel, IHasCustomDamageSource, IHasOverlay, IInfernalArm
 {
     public float attackDamage;
     public float attackSpeed;

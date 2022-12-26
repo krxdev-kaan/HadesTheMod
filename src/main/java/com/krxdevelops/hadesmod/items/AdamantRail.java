@@ -15,6 +15,7 @@ import com.krxdevelops.hadesmod.init.ItemInit;
 import com.krxdevelops.hadesmod.util.IHasCustomDamageSource;
 import com.krxdevelops.hadesmod.util.IHasModel;
 import com.krxdevelops.hadesmod.util.IHasOverlay;
+import com.krxdevelops.hadesmod.util.IInfernalArm;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.creativetab.CreativeTabs;
@@ -28,7 +29,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import org.lwjgl.Sys;
 
-public class AdamantRail extends Item implements IHasModel, IHasCustomDamageSource, IHasOverlay
+public class AdamantRail extends Item implements IHasModel, IHasCustomDamageSource, IHasOverlay, IInfernalArm
 {
     private float baseDamage;
     private float rocketDamage;
@@ -37,7 +38,7 @@ public class AdamantRail extends Item implements IHasModel, IHasCustomDamageSour
     {
         setUnlocalizedName(name);
         setRegistryName(name);
-        setCreativeTab(CreativeTabs.MATERIALS);
+        setCreativeTab(CreativeTabs.COMBAT);
         this.baseDamage = baseDamage;
         this.rocketDamage = rocketDamage;
 
