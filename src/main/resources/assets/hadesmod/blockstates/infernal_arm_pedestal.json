@@ -1,0 +1,10 @@
+{
+  "defaults": {
+    "model": "hadesmod:infernal_arm_pedestal"
+  },
+  "variants": {
+    "normal": {
+      "model": "hadesmod:infernal_arm_pedestal"
+    }
+  }
+}
