@@ -30,6 +30,7 @@ public class RenderInfernalArmPedestal extends TileEntitySpecialRenderer<TileEnt
     public void render(TileEntityInfernalArmPedestal te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
     {
         ItemStack stackOnEntity = te.itemStacks.get(0);
+        int titanbloodOnEntity = !te.itemStacks.get(1).isEmpty() ? te.itemStacks.get(1).getCount() : 0;
         if (!stackOnEntity.isEmpty())
         {
             GlStateManager.pushMatrix();
@@ -40,9 +41,9 @@ public class RenderInfernalArmPedestal extends TileEntitySpecialRenderer<TileEnt
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.5F, 0.0F, 0.5F);
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < titanbloodOnEntity; i++)
             {
-                GlStateManager.rotate((te.getWorld().getTotalWorldTime() + i * 120 + partialTicks) % 360, 0.0F, 1.0F, 0.0F);
+                GlStateManager.rotate((te.getWorld().getTotalWorldTime() + i * (360 / titanbloodOnEntity) + partialTicks) % 360, 0.0F, 1.0F, 0.0F);
                 GlStateManager.pushMatrix();
                 GlStateManager.translate(0.5F, 0.3F, 0.5F);
                 GlStateManager.disableLighting();
@@ -50,7 +51,7 @@ public class RenderInfernalArmPedestal extends TileEntitySpecialRenderer<TileEnt
                 Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ItemInit.titanblood, 1), ItemCameraTransforms.TransformType.GROUND);
                 GlStateManager.enableLighting();
                 GlStateManager.popMatrix();
-                GlStateManager.rotate(-((te.getWorld().getTotalWorldTime() + i * 120 + partialTicks) % 360), 0.0F, 1.0F, 0.0F);
+                GlStateManager.rotate(-((te.getWorld().getTotalWorldTime() + i * (360 / titanbloodOnEntity) + partialTicks) % 360), 0.0F, 1.0F, 0.0F);
             }
 
             GlStateManager.rotate((te.getWorld().getTotalWorldTime() + partialTicks) % 360, 0.0F, 1.0F, 0.0F);

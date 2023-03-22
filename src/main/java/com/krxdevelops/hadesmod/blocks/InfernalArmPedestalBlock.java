@@ -35,6 +35,8 @@ public class InfernalArmPedestalBlock extends Block implements IHasModel, ITileE
         setRegistryName(name);
         setCreativeTab(CreativeTabs.COMBAT);
         setLightLevel(4);
+        setHardness(3);
+        setHarvestLevel("pickaxe", 2);
 
         BlockInit.BLOCKS.add(this);
         ItemInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
@@ -48,11 +50,24 @@ public class InfernalArmPedestalBlock extends Block implements IHasModel, ITileE
 
             if (tileentity instanceof TileEntityInfernalArmPedestal)
             {
-                return ((TileEntityInfernalArmPedestal) tileentity).interactPlayer(playerIn);
+                return ((TileEntityInfernalArmPedestal) tileentity).interactPlayer(playerIn, false);
             }
         }
 
         return true;
+    }
+
+    public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
+    {
+        if (!worldIn.isRemote)
+        {
+            TileEntity tileentity = worldIn.getTileEntity(pos);
+
+            if (tileentity instanceof TileEntityInfernalArmPedestal)
+            {
+                ((TileEntityInfernalArmPedestal) tileentity).interactPlayer(playerIn, true);
+            }
+        }
     }
 
     @Override
